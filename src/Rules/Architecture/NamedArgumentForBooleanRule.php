@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace RentBetter\PHPStanRules\Rules\Architecture;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\CallLike;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Type\ObjectType;
 
 /**
  * Boolean literals (true/false) should be passed as named arguments
@@ -19,7 +18,7 @@ use PHPStan\Type\ObjectType;
  *
  * Skips: PHP built-in functions, vendor code, and already-named arguments.
  *
- * @implements Rule<Node>
+ * @implements Rule<CallLike>
  */
 final class NamedArgumentForBooleanRule implements Rule
 {
@@ -32,7 +31,7 @@ final class NamedArgumentForBooleanRule implements Rule
 
     public function getNodeType(): string
     {
-        return Node::class;
+        return CallLike::class;
     }
 
     public function processNode(Node $node, Scope $scope): array
@@ -46,7 +45,7 @@ final class NamedArgumentForBooleanRule implements Rule
         }
 
         $errors = [];
-        foreach ($node->getArgs() as $i => $arg) {
+        foreach ($node->getArgs() as $arg) {
             // Already a named argument — skip
             if (null !== $arg->name) {
                 continue;
