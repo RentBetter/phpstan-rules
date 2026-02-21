@@ -1,0 +1,81 @@
+services:
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule
+        arguments:
+            entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\NoEntityManagerInControllerRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\NoRepositoryInControllerRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\NoDirectFlushRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\ActionMethodNamingRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule
+        arguments:
+            namespaceIncludes: %rentbetter.serviceNamespaceIncludes%
+            excludePatterns: %rentbetter.serviceExcludePatterns%
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule
+        arguments:
+            projectNamespaces: %rentbetter.projectNamespaces%
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule
+        arguments:
+            filterFunction: %rentbetter.nullFilterFunction%
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule
+
+conditionalTags:
+    RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:
+        phpstan.rules.rule: %rentbetter.noPublicCollectionReturn%
+    RentBetter\PHPStanRules\Rules\Doctrine\NoEntityManagerInControllerRule:
+        phpstan.rules.rule: %rentbetter.noEntityManagerInController%
+    RentBetter\PHPStanRules\Rules\Doctrine\NoRepositoryInControllerRule:
+        phpstan.rules.rule: %rentbetter.noRepositoryInController%
+    RentBetter\PHPStanRules\Rules\Doctrine\NoDirectFlushRule:
+        phpstan.rules.rule: %rentbetter.noDirectFlush%
+    RentBetter\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule:
+        phpstan.rules.rule: %rentbetter.noGenericId%
+    RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule:
+        phpstan.rules.rule: %rentbetter.routeRequiresMethod%
+    RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule:
+        phpstan.rules.rule: %rentbetter.routeRequiresUuidRequirement%
+    RentBetter\PHPStanRules\Rules\Symfony\ActionMethodNamingRule:
+        phpstan.rules.rule: %rentbetter.actionMethodNaming%
+    RentBetter\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule:
+        phpstan.rules.rule: %rentbetter.routeNameMatchesMethod%
+    RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule:
+        phpstan.rules.rule: %rentbetter.readonlyService%
+    RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule:
+        phpstan.rules.rule: %rentbetter.namedArgumentForBoolean%
+    RentBetter\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule:
+        phpstan.rules.rule: %rentbetter.noSnakeCaseJsonKey%
+    RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule:
+        phpstan.rules.rule: %rentbetter.noNullInJsonSerialize%
+    RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule:
+        phpstan.rules.rule: %rentbetter.statusColumnMustBeEnum%

@@ -1,0 +1,53 @@
+includes:
+    - rules.neon
+
+parametersSchema:
+    rentbetter: structure([
+        noPublicCollectionReturn: schema(bool(), nullable())
+        noEntityManagerInController: schema(bool(), nullable())
+        noRepositoryInController: schema(bool(), nullable())
+        noDirectFlush: schema(bool(), nullable())
+        noGenericId: schema(bool(), nullable())
+        routeRequiresMethod: schema(bool(), nullable())
+        routeRequiresUuidRequirement: schema(bool(), nullable())
+        actionMethodNaming: schema(bool(), nullable())
+        routeNameMatchesMethod: schema(bool(), nullable())
+        readonlyService: schema(bool(), nullable())
+        namedArgumentForBoolean: schema(bool(), nullable())
+        noSnakeCaseJsonKey: schema(bool(), nullable())
+        noNullInJsonSerialize: schema(bool(), nullable())
+        statusColumnMustBeEnum: schema(bool(), nullable())
+        entityNamespaceSegment: schema(string(), nullable())
+        serviceNamespaceIncludes: schema(listOf(string()), nullable())
+        serviceExcludePatterns: schema(listOf(string()), nullable())
+        projectNamespaces: schema(listOf(string()), nullable())
+        nullFilterFunction: schema(string(), nullable())
+    ])
+
+parameters:
+    rentbetter:
+        noPublicCollectionReturn: true
+        noEntityManagerInController: true
+        noRepositoryInController: true
+        noDirectFlush: true
+        noGenericId: true
+        routeRequiresMethod: true
+        routeRequiresUuidRequirement: true
+        actionMethodNaming: true
+        routeNameMatchesMethod: true
+        readonlyService: true
+        namedArgumentForBoolean: true
+        noSnakeCaseJsonKey: true
+        noNullInJsonSerialize: true
+        statusColumnMustBeEnum: true
+        entityNamespaceSegment: Entity
+        serviceNamespaceIncludes:
+            - App\
+        serviceExcludePatterns:
+            - Controller
+            - Command
+            - Entity
+            - Migration
+        projectNamespaces:
+            - App\
+        nullFilterFunction: array_filter_nulls
