@@ -22,7 +22,7 @@ final class ReadonlyServiceRuleTest extends RuleTestCase
     {
         $this->analyse([__DIR__ . '/data/readonly-service.php'], [
             [
-                'Service class App\Service\BadService should be declared readonly.',
+                'Service class App\Service\ReadyForReadonly should be declared readonly.',
                 5,
             ],
         ]);
