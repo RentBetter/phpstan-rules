@@ -16,6 +16,7 @@ parametersSchema:
         namedArgumentForBoolean: schema(bool(), nullable())
         noSnakeCaseJsonKey: schema(bool(), nullable())
         noNullInJsonSerialize: schema(bool(), nullable())
+        noRequestGetContentInController: schema(bool(), nullable())
         statusColumnMustBeEnum: schema(bool(), nullable())
         entityNamespaceSegment: schema(string(), nullable())
         serviceNamespaceIncludes: schema(listOf(string()), nullable())
@@ -39,6 +40,7 @@ parameters:
         namedArgumentForBoolean: true
         noSnakeCaseJsonKey: true
         noNullInJsonSerialize: true
+        noRequestGetContentInController: true
         statusColumnMustBeEnum: true
         entityNamespaceSegment: Entity
         serviceNamespaceIncludes:

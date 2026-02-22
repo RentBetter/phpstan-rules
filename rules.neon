@@ -48,6 +48,9 @@ services:
             filterFunction: %rentbetter.nullFilterFunction%
 
     -
+        class: RentBetter\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule
+
+    -
         class: RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule
 
 conditionalTags:
@@ -77,5 +80,7 @@ conditionalTags:
         phpstan.rules.rule: %rentbetter.noSnakeCaseJsonKey%
     RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule:
         phpstan.rules.rule: %rentbetter.noNullInJsonSerialize%
+    RentBetter\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule:
+        phpstan.rules.rule: %rentbetter.noRequestGetContentInController%
     RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule:
         phpstan.rules.rule: %rentbetter.statusColumnMustBeEnum%
