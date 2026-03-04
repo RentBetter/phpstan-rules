@@ -18,6 +18,17 @@ parametersSchema:
         noNullInJsonSerialize: schema(bool(), nullable())
         noRequestGetContentInController: schema(bool(), nullable())
         statusColumnMustBeEnum: schema(bool(), nullable())
+        noHardcodedValueInQuery: schema(bool(), nullable())
+        routeRequiresSpecApi: schema(bool(), nullable())
+        routePathCamelCase: schema(bool(), nullable())
+        routeIdParamMustBeString: schema(bool(), nullable())
+        routeMethodSignature: schema(bool(), nullable())
+        noGetPayloadInController: schema(bool(), nullable())
+        noMultipleRequestParamsInController: schema(bool(), nullable())
+        saveParameterDefault: schema(bool(), nullable())
+        moneyReturnType: schema(bool(), nullable())
+        useDateFormatter: schema(bool(), nullable())
+        noEntityAsFormDataClass: schema(bool(), nullable())
         entityNamespaceSegment: schema(string(), nullable())
         serviceNamespaceIncludes: schema(listOf(string()), nullable())
         serviceExcludePatterns: schema(listOf(string()), nullable())
@@ -42,6 +53,17 @@ parameters:
         noNullInJsonSerialize: true
         noRequestGetContentInController: true
         statusColumnMustBeEnum: true
+        noHardcodedValueInQuery: true
+        routeRequiresSpecApi: true
+        routePathCamelCase: true
+        routeIdParamMustBeString: true
+        routeMethodSignature: true
+        noGetPayloadInController: true
+        noMultipleRequestParamsInController: true
+        saveParameterDefault: true
+        moneyReturnType: true
+        useDateFormatter: true
+        noEntityAsFormDataClass: true
         entityNamespaceSegment: Entity
         serviceNamespaceIncludes:
             - App\

@@ -53,6 +53,41 @@ services:
     -
         class: RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule
 
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresSpecApiRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\RouteMethodSignatureRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Architecture\MoneyReturnTypeRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Architecture\UseDateFormatterRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule
+        arguments:
+            entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
+
 conditionalTags:
     RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:
         phpstan.rules.rule: %rentbetter.noPublicCollectionReturn%
@@ -84,3 +119,25 @@ conditionalTags:
         phpstan.rules.rule: %rentbetter.noRequestGetContentInController%
     RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule:
         phpstan.rules.rule: %rentbetter.statusColumnMustBeEnum%
+    RentBetter\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule:
+        phpstan.rules.rule: %rentbetter.noHardcodedValueInQuery%
+    RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresSpecApiRule:
+        phpstan.rules.rule: %rentbetter.routeRequiresSpecApi%
+    RentBetter\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule:
+        phpstan.rules.rule: %rentbetter.routePathCamelCase%
+    RentBetter\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule:
+        phpstan.rules.rule: %rentbetter.routeIdParamMustBeString%
+    RentBetter\PHPStanRules\Rules\Symfony\RouteMethodSignatureRule:
+        phpstan.rules.rule: %rentbetter.routeMethodSignature%
+    RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule:
+        phpstan.rules.rule: %rentbetter.noGetPayloadInController%
+    RentBetter\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule:
+        phpstan.rules.rule: %rentbetter.noMultipleRequestParamsInController%
+    RentBetter\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule:
+        phpstan.rules.rule: %rentbetter.saveParameterDefault%
+    RentBetter\PHPStanRules\Rules\Architecture\MoneyReturnTypeRule:
+        phpstan.rules.rule: %rentbetter.moneyReturnType%
+    RentBetter\PHPStanRules\Rules\Architecture\UseDateFormatterRule:
+        phpstan.rules.rule: %rentbetter.useDateFormatter%
+    RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule:
+        phpstan.rules.rule: %rentbetter.noEntityAsFormDataClass%
