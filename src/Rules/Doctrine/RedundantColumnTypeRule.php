@@ -13,7 +13,8 @@ use PHPStan\Rules\RuleErrorBuilder;
 /**
  * Flags #[ORM\Column(type: ...)] where the type is already inferred from the PHP property type.
  *
- * Doctrine infers string→STRING, int→INTEGER, bool→BOOLEAN, float→FLOAT automatically.
+ * Doctrine infers string→STRING, int→INTEGER, bool→BOOLEAN, float→FLOAT,
+ * array→JSON, and DateTimeImmutable→DATETIME_IMMUTABLE automatically.
  * Specifying these explicitly is redundant noise.
  *
  * @implements Rule<Property>
@@ -28,6 +29,8 @@ final class RedundantColumnTypeRule implements Rule
         'int' => ['INTEGER', 'integer'],
         'bool' => ['BOOLEAN', 'boolean'],
         'float' => ['FLOAT', 'float'],
+        'array' => ['JSON', 'json'],
+        'DateTimeImmutable' => ['DATETIME_IMMUTABLE', 'datetime_immutable'],
     ];
 
     public function getNodeType(): string
@@ -138,14 +141,19 @@ final class RedundantColumnTypeRule implements Rule
     {
         $type = $node->type;
 
-        // ?string → string
+        // ?string → string, ?DateTimeImmutable → DateTimeImmutable
         if ($type instanceof Node\NullableType) {
             $type = $type->type;
         }
 
-        // string, int, bool, float
+        // string, int, bool, float, array
         if ($type instanceof Node\Identifier) {
             return $type->name;
+        }
+
+        // DateTimeImmutable, etc.
+        if ($type instanceof Node\Name) {
+            return $type->getLast();
         }
 
         return null;

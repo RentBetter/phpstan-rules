@@ -23,27 +23,43 @@ final class RedundantColumnTypeRuleTest extends RuleTestCase
         $this->analyse([__DIR__ . '/data/redundant-column-type.php'], [
             [
                 'Redundant type: Types::STRING on string property $name — Doctrine infers this from the PHP type.',
-                11,
+                12,
             ],
             [
                 'Redundant type: Types::INTEGER on int property $count — Doctrine infers this from the PHP type.',
-                14,
+                15,
             ],
             [
                 'Redundant type: Types::BOOLEAN on bool property $active — Doctrine infers this from the PHP type.',
-                17,
+                18,
             ],
             [
                 'Redundant type: Types::FLOAT on float property $rate — Doctrine infers this from the PHP type.',
-                20,
+                21,
             ],
             [
                 'Redundant type: Types::STRING on string property $nickname — Doctrine infers this from the PHP type.',
-                23,
+                24,
             ],
             [
                 "Redundant type: 'string' on string property \$literal — Doctrine infers this from the PHP type.",
-                26,
+                27,
+            ],
+            [
+                'Redundant type: Types::JSON on array property $data — Doctrine infers this from the PHP type.',
+                39,
+            ],
+            [
+                'Redundant type: Types::DATETIME_IMMUTABLE on DateTimeImmutable property $createdAt — Doctrine infers this from the PHP type.',
+                42,
+            ],
+            [
+                'Redundant type: Types::DATETIME_IMMUTABLE on DateTimeImmutable property $deletedAt — Doctrine infers this from the PHP type.',
+                45,
+            ],
+            [
+                'Redundant type: Types::JSON on array property $metadata — Doctrine infers this from the PHP type.',
+                48,
             ],
         ]);
     }

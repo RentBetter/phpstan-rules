@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,6 +36,21 @@ class RedundantTypes
     #[ORM\Column] // OK - no type specified
     private string $simple;
 
-    #[ORM\Column(type: Types::JSON)] // OK - not a scalar default
+    #[ORM\Column(type: Types::JSON)] // ERROR - redundant, Doctrine infers array → JSON
     private array $data;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)] // ERROR - redundant
+    private DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)] // ERROR - type still redundant
+    private ?DateTimeImmutable $deletedAt;
+
+    #[ORM\Column(type: Types::JSON, options: ['jsonb' => true])] // ERROR - type redundant even with options
+    private array $metadata;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)] // OK - DATE_IMMUTABLE is not DATETIME_IMMUTABLE
+    private DateTimeImmutable $birthDate;
+
+    #[ORM\Column] // OK - no type specified
+    private array $tags;
 }
