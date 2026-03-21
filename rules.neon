@@ -88,6 +88,18 @@ services:
         arguments:
             entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
 
+    -
+        class: RentBetter\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule
+
 conditionalTags:
     RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:
         phpstan.rules.rule: %rentbetter.noPublicCollectionReturn%
@@ -141,3 +153,11 @@ conditionalTags:
         phpstan.rules.rule: %rentbetter.useDateFormatter%
     RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule:
         phpstan.rules.rule: %rentbetter.noEntityAsFormDataClass%
+    RentBetter\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule:
+        phpstan.rules.rule: %rentbetter.noClassLevelRoute%
+    RentBetter\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule:
+        phpstan.rules.rule: %rentbetter.entityTablePrefix%
+    RentBetter\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule:
+        phpstan.rules.rule: %rentbetter.entityDeferredExplicit%
+    RentBetter\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule:
+        phpstan.rules.rule: %rentbetter.redundantColumnType%

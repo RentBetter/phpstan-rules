@@ -2,7 +2,7 @@
 
 PHPStan rules for Symfony/Doctrine projects, extracted from [RentBetter](https://rentbetter.com.au) coding conventions.
 
-14 rules covering Doctrine usage, Symfony routing, architecture patterns, JSON serialization, and enum enforcement.
+PHPStan rules covering Doctrine usage, Symfony routing, architecture patterns, JSON serialization, and enum enforcement.
 
 ## Installation
 
@@ -22,6 +22,9 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `NoEntityManagerInControllerRule` | `rentbetter.noEntityManagerInController` | Controller constructors injecting `EntityManagerInterface` |
 | `NoRepositoryInControllerRule` | `rentbetter.noRepositoryInController` | Controller constructors injecting `*Repository` classes |
 | `NoDirectFlushRule` | `rentbetter.noDirectFlush` | Calling `->flush()` on `EntityManagerInterface` |
+| `EntityTablePrefixRule` | `rentbetter.entityTablePrefix` | Entities missing `#[ORM\Table(name: 'tbl_...')]` — prefix makes direct table usage searchable |
+| `EntityDeferredExplicitRule` | `rentbetter.entityDeferredExplicit` | Entities missing `#[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]` — prevents accidental flushes, improves performance, and gives control over batch saving and flush timing |
+| `RedundantColumnTypeRule` | `rentbetter.redundantColumnType` | `type: Types::STRING` on `string` properties etc. — Doctrine infers these from the PHP type, so specifying them is noise |
 
 ### Symfony Routes
 
@@ -32,6 +35,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `RouteRequiresUuidRequirementRule` | `rentbetter.routeRequiresUuidRequirement` | Route `{fooId}` params without `requirements:` constraint |
 | `ActionMethodNamingRule` | `rentbetter.actionMethodNaming` | Public route methods not ending in `Action` |
 | `RouteNameMatchesMethodRule` | `rentbetter.routeNameMatchesMethod` | Route `name:` doesn't match method minus `Action` suffix |
+| `NoClassLevelRouteRule` | `rentbetter.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path and make routes unsearchable |
 
 ### Architecture
 

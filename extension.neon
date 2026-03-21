@@ -29,6 +29,10 @@ parametersSchema:
         moneyReturnType: schema(bool(), nullable())
         useDateFormatter: schema(bool(), nullable())
         noEntityAsFormDataClass: schema(bool(), nullable())
+        noClassLevelRoute: schema(bool(), nullable())
+        entityTablePrefix: schema(bool(), nullable())
+        entityDeferredExplicit: schema(bool(), nullable())
+        redundantColumnType: schema(bool(), nullable())
         entityNamespaceSegment: schema(string(), nullable())
         serviceNamespaceIncludes: schema(listOf(string()), nullable())
         serviceExcludePatterns: schema(listOf(string()), nullable())
@@ -64,6 +68,10 @@ parameters:
         moneyReturnType: true
         useDateFormatter: true
         noEntityAsFormDataClass: true
+        noClassLevelRoute: true
+        entityTablePrefix: true
+        entityDeferredExplicit: true
+        redundantColumnType: true
         entityNamespaceSegment: Entity
         serviceNamespaceIncludes:
             - App\
