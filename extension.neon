@@ -33,7 +33,7 @@ parametersSchema:
         entityTablePrefix: schema(bool(), nullable())
         entityDeferredExplicit: schema(bool(), nullable())
         redundantColumnType: schema(bool(), nullable())
-        ruleLevel: schema(anyOf(int(), null()))
+        ruleLevel: schema(int(), nullable())
         entityNamespaceSegment: schema(string(), nullable())
         serviceNamespaceIncludes: schema(listOf(string()), nullable())
         serviceExcludePatterns: schema(listOf(string()), nullable())
