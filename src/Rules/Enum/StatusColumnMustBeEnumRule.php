@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Doctrine #[Column] attributes on properties containing "status" in their name
@@ -18,6 +19,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class StatusColumnMustBeEnumRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return Property::class;
@@ -25,6 +34,10 @@ final class StatusColumnMustBeEnumRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $errors = [];
 
         foreach ($node->props as $prop) {

@@ -11,6 +11,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Public methods with a $save or $flush bool parameter should default to true.
@@ -22,7 +23,15 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class SaveParameterDefaultRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
     private const PARAM_NAMES = ['save', 'flush'];
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
 
     public function getNodeType(): string
     {
@@ -32,6 +41,10 @@ final class SaveParameterDefaultRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node->isPublic()) {
             return [];
         }

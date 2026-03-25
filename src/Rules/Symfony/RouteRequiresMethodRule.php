@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Every #[Route] attribute must specify the HTTP methods: parameter.
@@ -17,6 +18,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class RouteRequiresMethodRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return ClassMethod::class;
@@ -24,6 +33,10 @@ final class RouteRequiresMethodRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $errors = [];
 
         foreach (RouteAttributeHelper::getRouteAttributes($node) as $attr) {

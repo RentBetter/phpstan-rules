@@ -3,102 +3,157 @@ services:
         class: RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule
         arguments:
             entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\NoEntityManagerInControllerRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\NoRepositoryInControllerRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\NoDirectFlushRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\ActionMethodNamingRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule
         arguments:
             namespaceIncludes: %rentbetter.serviceNamespaceIncludes%
             excludePatterns: %rentbetter.serviceExcludePatterns%
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule
         arguments:
             projectNamespaces: %rentbetter.projectNamespaces%
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule
         arguments:
             filterFunction: %rentbetter.nullFilterFunction%
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresSpecApiRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteMethodSignatureRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\MoneyReturnTypeRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\UseDateFormatterRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule
         arguments:
             entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule
+        arguments:
+            ruleLevel: %rentbetter.ruleLevel%
 
 conditionalTags:
     RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:

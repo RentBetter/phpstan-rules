@@ -10,6 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Direct calls to EntityManagerInterface::flush() are discouraged.
@@ -19,6 +20,14 @@ use PHPStan\Type\ObjectType;
  */
 final class NoDirectFlushRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 5;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return MethodCall::class;
@@ -26,6 +35,10 @@ final class NoDirectFlushRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node->name instanceof Node\Identifier) {
             return [];
         }

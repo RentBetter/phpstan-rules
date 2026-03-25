@@ -16,6 +16,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Form types must use a dedicated FormData DTO as data_class, not an entity.
@@ -27,8 +28,13 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NoEntityAsFormDataClassRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 5;
+
     public function __construct(
         private readonly string $entityNamespaceSegment = 'Entity',
+        private readonly ?int $ruleLevel = null,
     ) {}
 
     public function getNodeType(): string
@@ -39,6 +45,10 @@ final class NoEntityAsFormDataClassRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node->name instanceof Identifier || 'setDefaults' !== $node->name->name) {
             return [];
         }

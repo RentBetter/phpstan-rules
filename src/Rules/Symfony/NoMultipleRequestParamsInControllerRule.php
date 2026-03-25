@@ -14,6 +14,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Controller route methods accessing more than one request parameter directly
@@ -28,6 +29,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NoMultipleRequestParamsInControllerRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 5;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     /** Properties on ApiRequest/Request that are param bags */
     private const GETTER_PROPERTIES = ['query', 'request'];
 
@@ -42,6 +51,10 @@ final class NoMultipleRequestParamsInControllerRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $classReflection = $scope->getClassReflection();
         if (null === $classReflection || !str_ends_with($classReflection->getName(), 'Controller')) {
             return [];

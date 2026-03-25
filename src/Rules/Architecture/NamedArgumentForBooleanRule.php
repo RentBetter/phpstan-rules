@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Boolean literals (true/false) should be passed as named arguments
@@ -22,11 +23,16 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NamedArgumentForBooleanRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 8;
+
     /**
      * @param list<string> $projectNamespaces
      */
     public function __construct(
         private readonly array $projectNamespaces = ['App\\'],
+        private readonly ?int $ruleLevel = null,
     ) {}
 
     public function getNodeType(): string
@@ -36,6 +42,10 @@ final class NamedArgumentForBooleanRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node instanceof MethodCall && !$node instanceof StaticCall) {
             return [];
         }

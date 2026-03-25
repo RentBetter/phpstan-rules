@@ -15,6 +15,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Detects hardcoded numeric/string values in DQL queries that should use
@@ -36,6 +37,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NoHardcodedValueInQueryRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     private const DQL_METHODS = [
         'createQuery',
         'setDQL',
@@ -66,6 +75,10 @@ final class NoHardcodedValueInQueryRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node->name instanceof Identifier) {
             return [];
         }

@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * jsonSerialize() methods should not return raw arrays.
@@ -20,8 +21,13 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NoNullInJsonSerializeRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 8;
+
     public function __construct(
         private readonly string $filterFunction = 'array_filter_nulls',
+        private readonly ?int $ruleLevel = null,
     ) {}
 
     public function getNodeType(): string
@@ -31,6 +37,10 @@ final class NoNullInJsonSerializeRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if ('jsonSerialize' !== $node->name->name) {
             return [];
         }

@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route path parameters ending in "Id" (e.g. {tenancyId}) must have
@@ -18,6 +19,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class RouteRequiresUuidRequirementRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return ClassMethod::class;
@@ -25,6 +34,10 @@ final class RouteRequiresUuidRequirementRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $errors = [];
 
         foreach (RouteAttributeHelper::getRouteAttributes($node) as $attr) {

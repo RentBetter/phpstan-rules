@@ -10,6 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route parameters ending in "Id" must be typed as string in the method signature,
@@ -22,6 +23,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class RouteIdParamMustBeStringRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return ClassMethod::class;
@@ -30,6 +39,10 @@ final class RouteIdParamMustBeStringRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $routeAttrs = RouteAttributeHelper::getRouteAttributes($node);
         if ([] === $routeAttrs) {
             return [];

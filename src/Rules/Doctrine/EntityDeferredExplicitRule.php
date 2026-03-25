@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Entities with #[ORM\Entity] must also have #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')].
@@ -22,6 +23,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class EntityDeferredExplicitRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return Class_::class;
@@ -29,6 +38,10 @@ final class EntityDeferredExplicitRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$this->hasAttribute($node, 'Entity')) {
             return [];
         }

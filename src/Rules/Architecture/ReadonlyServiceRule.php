@@ -11,6 +11,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Service classes should be declared readonly — but only when it's actually possible:
@@ -21,6 +22,10 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class ReadonlyServiceRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 8;
+
     /**
      * @param list<string> $namespaceIncludes
      * @param list<string> $excludePatterns
@@ -28,6 +33,7 @@ final class ReadonlyServiceRule implements Rule
     public function __construct(
         private readonly array $namespaceIncludes = ['App\\'],
         private readonly array $excludePatterns = ['Controller', 'Command', 'Entity', 'Migration'],
+        private readonly ?int $ruleLevel = null,
     ) {}
 
     public function getNodeType(): string
@@ -37,6 +43,10 @@ final class ReadonlyServiceRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (null === $node->name) {
             return [];
         }

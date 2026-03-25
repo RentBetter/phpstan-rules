@@ -25,6 +25,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `EntityTablePrefixRule` | `rentbetter.entityTablePrefix` | Entities missing `#[ORM\Table(name: 'tbl_...')]` — prefix makes direct table usage searchable |
 | `EntityDeferredExplicitRule` | `rentbetter.entityDeferredExplicit` | Entities missing `#[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]` — prevents accidental flushes, improves performance, and gives control over batch saving and flush timing |
 | `RedundantColumnTypeRule` | `rentbetter.redundantColumnType` | `type: Types::STRING` on `string` properties etc. — Doctrine infers these from the PHP type, so specifying them is noise |
+| `NoHardcodedValueInQueryRule` | `rentbetter.noHardcodedValueInQuery` | Hardcoded numeric/string values in DQL queries — use bound parameters or `$enum->value` |
 
 ### Symfony Routes
 
@@ -35,7 +36,15 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `RouteRequiresUuidRequirementRule` | `rentbetter.routeRequiresUuidRequirement` | Route `{fooId}` params without `requirements:` constraint |
 | `ActionMethodNamingRule` | `rentbetter.actionMethodNaming` | Public route methods not ending in `Action` |
 | `RouteNameMatchesMethodRule` | `rentbetter.routeNameMatchesMethod` | Route `name:` doesn't match method minus `Action` suffix |
-| `NoClassLevelRouteRule` | `rentbetter.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path and make routes unsearchable |
+| `NoClassLevelRouteRule` | `rentbetter.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path |
+| `RoutePathCamelCaseRule` | `rentbetter.routePathCamelCase` | Route path segments using `snake_case` instead of `camelCase` |
+| `RouteIdParamMustBeStringRule` | `rentbetter.routeIdParamMustBeString` | Route ID parameters not typed as `string` |
+| `RouteMethodSignatureRule` | `rentbetter.routeMethodSignature` | Route methods missing `ApiRequest` first param or `ApiResponse` return type |
+| `RouteRequiresSpecApiRule` | `rentbetter.routeRequiresSpecApi` | Route methods missing `#[Spec\Api]` attribute |
+| `NoGetPayloadInControllerRule` | `rentbetter.noGetPayloadInController` | Controllers calling `getJsonPayload()`/`getPayload()` directly |
+| `NoMultipleRequestParamsInControllerRule` | `rentbetter.noMultipleRequestParamsInController` | Controllers accessing 2+ request parameters — use a form type |
+| `NoRequestGetContentInControllerRule` | `rentbetter.noRequestGetContentInController` | Controllers calling `Request::getContent()` directly |
+| `NoEntityAsFormDataClassRule` | `rentbetter.noEntityAsFormDataClass` | Form types using an entity as `data_class` instead of a DTO |
 
 ### Architecture
 
@@ -43,6 +52,9 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 |------|----------|----------------|
 | `ReadonlyServiceRule` | `rentbetter.readonlyService` | Non-readonly service classes |
 | `NamedArgumentForBooleanRule` | `rentbetter.namedArgumentForBoolean` | Boolean literals passed positionally to project methods |
+| `SaveParameterDefaultRule` | `rentbetter.saveParameterDefault` | `$save`/`$flush` bool params defaulting to `false` instead of `true` |
+| `MoneyReturnTypeRule` | `rentbetter.moneyReturnType` | Public methods returning `MoneyModelV2` instead of `MoneyInterface` |
+| `UseDateFormatterRule` | `rentbetter.useDateFormatter` | Direct `->format()` on DateTime objects instead of `DateFormatter` |
 
 ### Serialization
 
@@ -67,6 +79,31 @@ parameters:
         readonlyService: false
         noDirectFlush: false
 ```
+
+### Level-aware rules
+
+By default, all enabled rules fire regardless of the PHPStan analysis level. To tie
+rule activation to the configured level, set `ruleLevel`:
+
+```neon
+parameters:
+    rentbetter:
+        ruleLevel: %level%   # rules only fire at or above their minimum level
+```
+
+When `ruleLevel` is set, each rule has a minimum level threshold:
+
+| Level | Category | Rules |
+|-------|----------|-------|
+| **5** | Architecture | `noEntityManagerInController`, `noRepositoryInController`, `noDirectFlush`, `noRequestGetContentInController`, `noGetPayloadInController`, `noMultipleRequestParamsInController`, `noClassLevelRoute`, `noEntityAsFormDataClass` |
+| **6** | Correctness | `noPublicCollectionReturn`, `statusColumnMustBeEnum`, `noHardcodedValueInQuery`, `entityDeferredExplicit`, `entityTablePrefix`, `redundantColumnType`, `routeRequiresMethod`, `routeMethodSignature`, `routeIdParamMustBeString`, `routeRequiresUuidRequirement`, `moneyReturnType`, `saveParameterDefault`, `useDateFormatter` |
+| **8** | Convention | `noGenericId`, `actionMethodNaming`, `routeNameMatchesMethod`, `routePathCamelCase`, `routeRequiresSpecApi`, `readonlyService`, `namedArgumentForBoolean`, `noSnakeCaseJsonKey`, `noNullInJsonSerialize` |
+
+This means `--level 4` or below runs only standard PHPStan checks with no custom rules,
+`--level 5` adds architecture rules, `--level 6` adds correctness rules, and `--level 8`
+enables everything.
+
+When `ruleLevel` is `null` (the default), all rules fire at every level — backward compatible.
 
 ### Configurable parameters
 

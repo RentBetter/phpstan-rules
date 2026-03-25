@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Forbids #[Route] on the controller class itself.
@@ -21,6 +22,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NoClassLevelRouteRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 5;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return Class_::class;
@@ -28,6 +37,10 @@ final class NoClassLevelRouteRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         foreach ($node->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
                 $name = $attr->name->toString();

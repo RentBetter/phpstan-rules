@@ -12,6 +12,7 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Use DateFormatter::formatDatetime() or DateFormatter::formatDate()
@@ -24,6 +25,14 @@ use PHPStan\Type\ObjectType;
  */
 final class UseDateFormatterRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return MethodCall::class;
@@ -32,6 +41,10 @@ final class UseDateFormatterRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node->name instanceof Identifier || 'format' !== $node->name->name) {
             return [];
         }

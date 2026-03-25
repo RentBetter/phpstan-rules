@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Flags #[ORM\Column(type: ...)] where the type is already inferred from the PHP property type.
@@ -21,6 +22,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class RedundantColumnTypeRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     /**
      * Maps PHP type name → [redundant Doctrine constant name, redundant string literal].
      */
@@ -40,6 +49,10 @@ final class RedundantColumnTypeRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $columnAttr = $this->findColumnAttribute($node);
         if (null === $columnAttr) {
             return [];

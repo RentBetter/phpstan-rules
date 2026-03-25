@@ -10,6 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route methods must have a #[Spec\Api] attribute for API documentation.
@@ -18,6 +19,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class RouteRequiresSpecApiRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 8;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     private const SPEC_API_NAMES = [
         'Api',
         'Spec\Api',
@@ -34,6 +43,10 @@ final class RouteRequiresSpecApiRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if ([] === RouteAttributeHelper::getRouteAttributes($node)) {
             return [];
         }

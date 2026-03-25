@@ -11,6 +11,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Controllers must not inspect request payload directly.
@@ -23,6 +24,14 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class NoGetPayloadInControllerRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 5;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     private const FLAGGED_METHODS = ['getJsonPayload', 'getPayload'];
 
     public function getNodeType(): string
@@ -33,6 +42,10 @@ final class NoGetPayloadInControllerRule implements Rule
     /** @return list<IdentifierRuleError> */
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         if (!$node->name instanceof Identifier) {
             return [];
         }

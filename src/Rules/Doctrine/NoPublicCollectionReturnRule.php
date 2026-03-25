@@ -11,6 +11,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
+use RentBetter\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Entities should not expose Doctrine Collections from public methods.
@@ -20,8 +21,13 @@ use PHPStan\Type\ObjectType;
  */
 final class NoPublicCollectionReturnRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
     public function __construct(
         private readonly string $entityNamespaceSegment = 'Entity',
+        private readonly ?int $ruleLevel = null,
     ) {}
 
     public function getNodeType(): string
@@ -31,6 +37,10 @@ final class NoPublicCollectionReturnRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof ClassReflection) {
             return [];
