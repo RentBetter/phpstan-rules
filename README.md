@@ -82,16 +82,16 @@ parameters:
 
 ### Level-aware rules
 
-By default, all enabled rules fire regardless of the PHPStan analysis level. To tie
-rule activation to the configured level, set `ruleLevel`:
+By default, all enabled rules fire regardless of the PHPStan analysis level. To
+suppress custom rules at lower levels, set `ruleLevel` to the desired threshold:
 
 ```neon
 parameters:
     rentbetter:
-        ruleLevel: %level%   # rules only fire at or above their minimum level
+        ruleLevel: 5   # only architecture rules (level 5+) will fire
 ```
 
-When `ruleLevel` is set, each rule has a minimum level threshold:
+Each rule has a minimum level threshold:
 
 | Level | Category | Rules |
 |-------|----------|-------|
@@ -99,11 +99,10 @@ When `ruleLevel` is set, each rule has a minimum level threshold:
 | **6** | Correctness | `noPublicCollectionReturn`, `statusColumnMustBeEnum`, `noHardcodedValueInQuery`, `entityDeferredExplicit`, `entityTablePrefix`, `redundantColumnType`, `routeRequiresMethod`, `routeMethodSignature`, `routeIdParamMustBeString`, `routeRequiresUuidRequirement`, `moneyReturnType`, `saveParameterDefault`, `useDateFormatter` |
 | **8** | Convention | `noGenericId`, `actionMethodNaming`, `routeNameMatchesMethod`, `routePathCamelCase`, `routeRequiresSpecApi`, `readonlyService`, `namedArgumentForBoolean`, `noSnakeCaseJsonKey`, `noNullInJsonSerialize` |
 
-This means `--level 4` or below runs only standard PHPStan checks with no custom rules,
-`--level 5` adds architecture rules, `--level 6` adds correctness rules, and `--level 8`
-enables everything.
+When `ruleLevel` is `null` (the default), all rules fire — backward compatible.
 
-When `ruleLevel` is `null` (the default), all rules fire at every level — backward compatible.
+**Note:** PHPStan's `--level` CLI flag does not update the `%level%` parameter, so
+`ruleLevel` must be set to a fixed integer, not `%level%`.
 
 ### Configurable parameters
 
