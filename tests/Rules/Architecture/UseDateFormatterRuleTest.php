@@ -19,8 +19,8 @@ final class UseDateFormatterRuleTest extends RuleTestCase
     public function testRule(): void
     {
         $this->analyse([__DIR__ . '/data/use-date-formatter.php'], [
-            ['Use DateFormatter::formatDatetime() or DateFormatter::formatDate() instead of ->format().', 9],
-            ['Use DateFormatter::formatDatetime() or DateFormatter::formatDate() instead of ->format().', 14],
+            ['Use DateFormatter::formatDatetime() or DateFormatter::formatDate() instead of ->format().', 40],
+            ['Use DateFormatter::formatDatetime() or DateFormatter::formatDate() instead of ->format().', 41],
         ]);
     }
 }

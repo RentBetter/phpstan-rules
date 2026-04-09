@@ -45,6 +45,12 @@ final class UseDateFormatterRule implements Rule
             return [];
         }
 
+        // Only applies inside jsonSerialize methods
+        $function = $scope->getFunction();
+        if (null === $function || 'jsonSerialize' !== $function->getName()) {
+            return [];
+        }
+
         if (!$node->name instanceof Identifier || 'format' !== $node->name->name) {
             return [];
         }
