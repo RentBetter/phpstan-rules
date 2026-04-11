@@ -19,15 +19,11 @@ parametersSchema:
         noRequestGetContentInController: schema(bool(), nullable())
         statusColumnMustBeEnum: schema(bool(), nullable())
         noHardcodedValueInQuery: schema(bool(), nullable())
-        routeRequiresSpecApi: schema(bool(), nullable())
         routePathCamelCase: schema(bool(), nullable())
         routeIdParamMustBeString: schema(bool(), nullable())
-        routeMethodSignature: schema(bool(), nullable())
         noGetPayloadInController: schema(bool(), nullable())
         noMultipleRequestParamsInController: schema(bool(), nullable())
         saveParameterDefault: schema(bool(), nullable())
-        moneyReturnType: schema(bool(), nullable())
-        useDateFormatter: schema(bool(), nullable())
         noEntityAsFormDataClass: schema(bool(), nullable())
         noClassLevelRoute: schema(bool(), nullable())
         entityTablePrefix: schema(bool(), nullable())
@@ -59,15 +55,11 @@ parameters:
         noRequestGetContentInController: true
         statusColumnMustBeEnum: true
         noHardcodedValueInQuery: true
-        routeRequiresSpecApi: true
         routePathCamelCase: true
         routeIdParamMustBeString: true
-        routeMethodSignature: true
         noGetPayloadInController: true
         noMultipleRequestParamsInController: true
         saveParameterDefault: true
-        moneyReturnType: true
-        useDateFormatter: true
         noEntityAsFormDataClass: true
         noClassLevelRoute: true
         entityTablePrefix: true
