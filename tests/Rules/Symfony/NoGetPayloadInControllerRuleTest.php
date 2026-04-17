@@ -7,13 +7,14 @@ namespace RentBetter\PHPStanRules\Tests\Rules\Symfony;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule;
+use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
 
 /** @extends RuleTestCase<NoGetPayloadInControllerRule> */
 final class NoGetPayloadInControllerRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
     {
-        return new NoGetPayloadInControllerRule();
+        return new NoGetPayloadInControllerRule(TestGroups::defaultResolver());
     }
 
     public function testRule(): void

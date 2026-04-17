@@ -11,6 +11,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Controllers should not call Request::getContent() directly.
@@ -25,6 +26,7 @@ final class NoRequestGetContentInControllerRule implements Rule
     private const int MIN_LEVEL = 5;
 
     public function __construct(
+        private readonly NamespaceGroupResolver $resolver,
         private readonly ?int $ruleLevel = null,
     ) {}
 
@@ -48,11 +50,7 @@ final class NoRequestGetContentInControllerRule implements Rule
         }
 
         $classReflection = $scope->getClassReflection();
-        if (null === $classReflection) {
-            return [];
-        }
-
-        if (!str_ends_with($classReflection->getName(), 'Controller')) {
+        if (null === $classReflection || !$this->resolver->inGroup($classReflection->getName(), 'controller')) {
             return [];
         }
 

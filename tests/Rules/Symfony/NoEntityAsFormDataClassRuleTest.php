@@ -7,13 +7,14 @@ namespace RentBetter\PHPStanRules\Tests\Rules\Symfony;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule;
+use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
 
 /** @extends RuleTestCase<NoEntityAsFormDataClassRule> */
 final class NoEntityAsFormDataClassRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
     {
-        return new NoEntityAsFormDataClassRule();
+        return new NoEntityAsFormDataClassRule(TestGroups::defaultResolver());
     }
 
     public function testRule(): void

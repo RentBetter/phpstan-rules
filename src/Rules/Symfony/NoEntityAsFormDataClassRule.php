@@ -17,6 +17,7 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Form types must use a dedicated FormData DTO as data_class, not an entity.
@@ -33,7 +34,7 @@ final class NoEntityAsFormDataClassRule implements Rule
     private const int MIN_LEVEL = 5;
 
     public function __construct(
-        private readonly string $entityNamespaceSegment = 'Entity',
+        private readonly NamespaceGroupResolver $resolver,
         private readonly ?int $ruleLevel = null,
     ) {}
 
@@ -75,7 +76,7 @@ final class NoEntityAsFormDataClassRule implements Rule
 
             $className = $item->value->class->toString();
 
-            if ($this->isEntityClass($className)) {
+            if ($this->resolver->inGroup($className, 'entity')) {
                 return [
                     RuleErrorBuilder::message(
                         \sprintf(
@@ -90,14 +91,5 @@ final class NoEntityAsFormDataClassRule implements Rule
         }
 
         return [];
-    }
-
-    private function isEntityClass(string $className): bool
-    {
-        // Check if "Entity" appears as a namespace segment
-        $segments = explode('\\', $className);
-        array_pop($segments); // Remove the class name itself
-
-        return \in_array($this->entityNamespaceSegment, $segments, true);
     }
 }

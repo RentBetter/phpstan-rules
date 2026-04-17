@@ -7,6 +7,7 @@ namespace RentBetter\PHPStanRules\Tests\Rules\Architecture;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule;
+use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
 
 /**
  * @extends RuleTestCase<NamedArgumentForBooleanRule>
@@ -15,7 +16,7 @@ final class NamedArgumentForBooleanRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
     {
-        return new NamedArgumentForBooleanRule();
+        return new NamedArgumentForBooleanRule(TestGroups::defaultResolver());
     }
 
     public function testRule(): void

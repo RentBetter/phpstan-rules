@@ -4,8 +4,6 @@ includes:
 parametersSchema:
     rentbetter: structure([
         noPublicCollectionReturn: schema(bool(), nullable())
-        noEntityManagerInController: schema(bool(), nullable())
-        noRepositoryInController: schema(bool(), nullable())
         noDirectFlush: schema(bool(), nullable())
         noGenericId: schema(bool(), nullable())
         routeRequiresMethod: schema(bool(), nullable())
@@ -29,19 +27,19 @@ parametersSchema:
         entityTablePrefix: schema(bool(), nullable())
         entityDeferredExplicit: schema(bool(), nullable())
         redundantColumnType: schema(bool(), nullable())
+        forbiddenDependency: schema(bool(), nullable())
         ruleLevel: schema(int(), nullable())
-        entityNamespaceSegment: schema(string(), nullable())
-        serviceNamespaceIncludes: schema(listOf(string()), nullable())
-        serviceExcludePatterns: schema(listOf(string()), nullable())
-        projectNamespaces: schema(listOf(string()), nullable())
         nullFilterFunction: schema(string(), nullable())
+        groups: arrayOf(listOf(string()))
+        forbiddenDependencies: arrayOf(listOf(structure([
+            group: string()
+            reason: string()
+        ])))
     ])
 
 parameters:
     rentbetter:
         noPublicCollectionReturn: true
-        noEntityManagerInController: true
-        noRepositoryInController: true
         noDirectFlush: true
         noGenericId: true
         routeRequiresMethod: true
@@ -65,15 +63,27 @@ parameters:
         entityTablePrefix: true
         entityDeferredExplicit: true
         redundantColumnType: true
+        forbiddenDependency: true
         ruleLevel: null
-        entityNamespaceSegment: Entity
-        serviceNamespaceIncludes:
-            - App\
-        serviceExcludePatterns:
-            - Controller
-            - Command
-            - Entity
-            - Migration
-        projectNamespaces:
-            - App\
         nullFilterFunction: array_filter_nulls
+        groups:
+            controller: ['~\\Controller\\~']
+            service:    ['~\\Services?\\~', '~\\Helpers?\\~']
+            repository: ['~\\Repository\\~']
+            entity:     ['~\\Entity\\~']
+            command:    ['~\\Command\\~']
+            migration:  ['~\\Migrations?\\~']
+            project:    ['~^App\\\\~', '~^PTGS\\\\~']
+            dbAccess:
+                - 'Doctrine\ORM\EntityManagerInterface'
+                - 'Doctrine\DBAL\Connection'
+                - 'PDO'
+        forbiddenDependencies:
+            controller:
+                - group: dbAccess
+                  reason: 'Controllers must remain thin — push DB access into a service.'
+                - group: repository
+                  reason: 'Controllers should depend on services, not repositories directly.'
+            service:
+                - group: dbAccess
+                  reason: 'Services must use repositories — repositories own all DB access.'
