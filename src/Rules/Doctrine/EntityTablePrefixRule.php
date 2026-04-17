@@ -50,7 +50,7 @@ final class EntityTablePrefixRule implements Rule
             return [
                 RuleErrorBuilder::message(\sprintf(
                     'Entity %s is missing #[ORM\\Table(name: \'tbl_...\')]. The tbl_ prefix makes direct table usage searchable across the project.',
-                    $node->name?->name ?? '(anonymous)',
+                    $node->name->name ?? '(anonymous)',
                 ))
                     ->identifier('rentbetter.entityTablePrefix')
                     ->build(),
@@ -72,7 +72,7 @@ final class EntityTablePrefixRule implements Rule
             return [
                 RuleErrorBuilder::message(\sprintf(
                     'Entity %s has #[ORM\\Table] without a name argument. Specify name: \'tbl_...\'.',
-                    $node->name?->name ?? '(anonymous)',
+                    $node->name->name ?? '(anonymous)',
                 ))
                     ->identifier('rentbetter.entityTablePrefix')
                     ->line($tableAttr->getStartLine())
@@ -84,7 +84,7 @@ final class EntityTablePrefixRule implements Rule
             return [
                 RuleErrorBuilder::message(\sprintf(
                     'Entity %s table name \'%s\' must start with tbl_ — the prefix makes direct table usage searchable across the project.',
-                    $node->name?->name ?? '(anonymous)',
+                    $node->name->name ?? '(anonymous)',
                     $name,
                 ))
                     ->identifier('rentbetter.entityTablePrefix')

@@ -53,7 +53,7 @@ final class EntityDeferredExplicitRule implements Rule
         return [
             RuleErrorBuilder::message(\sprintf(
                 'Entity %s is missing #[ORM\\ChangeTrackingPolicy(\'DEFERRED_EXPLICIT\')]. All entities must use deferred explicit change tracking.',
-                $node->name?->name ?? '(anonymous)',
+                $node->name->name ?? '(anonymous)',
             ))
                 ->identifier('rentbetter.entityDeferredExplicit')
                 ->build(),
