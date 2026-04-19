@@ -11,6 +11,7 @@ parametersSchema:
         actionMethodNaming: schema(bool(), nullable())
         routeNameMatchesMethod: schema(bool(), nullable())
         readonlyService: schema(bool(), nullable())
+        redundantReadonlyInReadonlyClass: schema(bool(), nullable())
         namedArgumentForBoolean: schema(bool(), nullable())
         noSnakeCaseJsonKey: schema(bool(), nullable())
         noNullInJsonSerialize: schema(bool(), nullable())
@@ -47,6 +48,7 @@ parameters:
         actionMethodNaming: true
         routeNameMatchesMethod: true
         readonlyService: true
+        redundantReadonlyInReadonlyClass: true
         namedArgumentForBoolean: true
         noSnakeCaseJsonKey: true
         noNullInJsonSerialize: true
