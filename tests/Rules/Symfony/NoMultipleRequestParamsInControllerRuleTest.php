@@ -7,13 +7,14 @@ namespace RentBetter\PHPStanRules\Tests\Rules\Symfony;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RentBetter\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule;
+use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
 
 /** @extends RuleTestCase<NoMultipleRequestParamsInControllerRule> */
 final class NoMultipleRequestParamsInControllerRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
     {
-        return new NoMultipleRequestParamsInControllerRule();
+        return new NoMultipleRequestParamsInControllerRule(TestGroups::defaultResolver());
     }
 
     public function testRule(): void

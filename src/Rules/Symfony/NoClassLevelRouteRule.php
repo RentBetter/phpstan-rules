@@ -51,7 +51,7 @@ final class NoClassLevelRouteRule implements Rule
                     return [
                         RuleErrorBuilder::message(\sprintf(
                             'Class %s has a class-level #[Route] attribute. Define the full route path on each action method instead — class-level prefixes hide the real path and make routes unsearchable.',
-                            $node->name?->name ?? '(anonymous)',
+                            $node->name->name ?? '(anonymous)',
                         ))
                             ->identifier('rentbetter.noClassLevelRoute')
                             ->line($attr->getStartLine())

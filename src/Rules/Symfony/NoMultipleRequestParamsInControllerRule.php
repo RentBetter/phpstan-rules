@@ -15,6 +15,7 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Controller route methods accessing more than one request parameter directly
@@ -34,6 +35,7 @@ final class NoMultipleRequestParamsInControllerRule implements Rule
     private const int MIN_LEVEL = 5;
 
     public function __construct(
+        private readonly NamespaceGroupResolver $resolver,
         private readonly ?int $ruleLevel = null,
     ) {}
 
@@ -56,7 +58,7 @@ final class NoMultipleRequestParamsInControllerRule implements Rule
         }
 
         $classReflection = $scope->getClassReflection();
-        if (null === $classReflection || !str_ends_with($classReflection->getName(), 'Controller')) {
+        if (null === $classReflection || !$this->resolver->inGroup($classReflection->getName(), 'controller')) {
             return [];
         }
 

@@ -12,6 +12,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Service classes should be declared readonly — but only when it's actually possible:
@@ -26,13 +27,8 @@ final class ReadonlyServiceRule implements Rule
 
     private const int MIN_LEVEL = 8;
 
-    /**
-     * @param list<string> $namespaceIncludes
-     * @param list<string> $excludePatterns
-     */
     public function __construct(
-        private readonly array $namespaceIncludes = ['App\\'],
-        private readonly array $excludePatterns = ['Controller', 'Command', 'Entity', 'Migration'],
+        private readonly NamespaceGroupResolver $resolver,
         private readonly ?int $ruleLevel = null,
     ) {}
 
@@ -57,11 +53,7 @@ final class ReadonlyServiceRule implements Rule
 
         $fqcn = $node->namespacedName?->toString() ?? $node->name->name;
 
-        if (!$this->isInNamespace($fqcn)) {
-            return [];
-        }
-
-        if ($this->isExcluded($fqcn)) {
+        if (!$this->resolver->inGroup($fqcn, 'service')) {
             return [];
         }
 
@@ -78,7 +70,6 @@ final class ReadonlyServiceRule implements Rule
             }
         }
 
-        // All properties must already be readonly (or no properties at all)
         if (!$this->allPropertiesReadonly($node)) {
             return [];
         }
@@ -97,7 +88,6 @@ final class ReadonlyServiceRule implements Rule
     {
         $hasProperties = false;
 
-        // Check declared properties
         foreach ($node->stmts as $stmt) {
             if ($stmt instanceof Property) {
                 $hasProperties = true;
@@ -107,7 +97,6 @@ final class ReadonlyServiceRule implements Rule
             }
         }
 
-        // Check promoted constructor parameters
         $constructor = $node->getMethod('__construct');
         if (null !== $constructor) {
             foreach ($constructor->params as $param) {
@@ -115,7 +104,6 @@ final class ReadonlyServiceRule implements Rule
                     || 0 !== ($param->flags & Class_::MODIFIER_PROTECTED)
                     || 0 !== ($param->flags & Class_::MODIFIER_PRIVATE)
                 ) {
-                    // This is a promoted parameter (it has a visibility modifier)
                     $hasProperties = true;
                     if (0 === ($param->flags & Class_::MODIFIER_READONLY)) {
                         return false;
@@ -124,30 +112,6 @@ final class ReadonlyServiceRule implements Rule
             }
         }
 
-        // No properties at all — constructor with only non-promoted params, or no constructor.
-        // A class with no properties can always be readonly, flag it.
         return $hasProperties;
-    }
-
-    private function isInNamespace(string $fqcn): bool
-    {
-        foreach ($this->namespaceIncludes as $prefix) {
-            if (str_starts_with($fqcn, $prefix)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private function isExcluded(string $fqcn): bool
-    {
-        foreach ($this->excludePatterns as $pattern) {
-            if (str_contains($fqcn, $pattern)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

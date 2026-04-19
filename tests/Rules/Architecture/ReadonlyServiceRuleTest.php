@@ -7,6 +7,7 @@ namespace RentBetter\PHPStanRules\Tests\Rules\Architecture;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule;
+use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
 
 /**
  * @extends RuleTestCase<ReadonlyServiceRule>
@@ -15,7 +16,7 @@ final class ReadonlyServiceRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
     {
-        return new ReadonlyServiceRule();
+        return new ReadonlyServiceRule(TestGroups::defaultResolver());
     }
 
     public function testRule(): void

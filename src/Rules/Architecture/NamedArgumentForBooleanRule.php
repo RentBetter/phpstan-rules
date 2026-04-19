@@ -12,6 +12,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Boolean literals (true/false) should be passed as named arguments
@@ -27,11 +28,8 @@ final class NamedArgumentForBooleanRule implements Rule
 
     private const int MIN_LEVEL = 8;
 
-    /**
-     * @param list<string> $projectNamespaces
-     */
     public function __construct(
-        private readonly array $projectNamespaces = ['App\\'],
+        private readonly NamespaceGroupResolver $resolver,
         private readonly ?int $ruleLevel = null,
     ) {}
 
@@ -110,10 +108,8 @@ final class NamedArgumentForBooleanRule implements Rule
         }
 
         foreach ($classNames as $className) {
-            foreach ($this->projectNamespaces as $prefix) {
-                if (str_starts_with($className, $prefix)) {
-                    return true;
-                }
+            if ($this->resolver->inGroup($className, 'project')) {
+                return true;
             }
         }
 

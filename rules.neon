@@ -1,17 +1,17 @@
 services:
     -
+        class: RentBetter\PHPStanRules\Rules\NamespaceGroupResolver
+        arguments:
+            groups: %rentbetter.groups%
+
+    -
+        class: RentBetter\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule
+        arguments:
+            forbiddenDependencies: %rentbetter.forbiddenDependencies%
+            ruleLevel: %rentbetter.ruleLevel%
+
+    -
         class: RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule
-        arguments:
-            entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
-            ruleLevel: %rentbetter.ruleLevel%
-
-    -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\NoEntityManagerInControllerRule
-        arguments:
-            ruleLevel: %rentbetter.ruleLevel%
-
-    -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\NoRepositoryInControllerRule
         arguments:
             ruleLevel: %rentbetter.ruleLevel%
 
@@ -48,14 +48,11 @@ services:
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule
         arguments:
-            namespaceIncludes: %rentbetter.serviceNamespaceIncludes%
-            excludePatterns: %rentbetter.serviceExcludePatterns%
             ruleLevel: %rentbetter.ruleLevel%
 
     -
         class: RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule
         arguments:
-            projectNamespaces: %rentbetter.projectNamespaces%
             ruleLevel: %rentbetter.ruleLevel%
 
     -
@@ -84,7 +81,6 @@ services:
         arguments:
             ruleLevel: %rentbetter.ruleLevel%
 
-
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule
         arguments:
@@ -94,7 +90,6 @@ services:
         class: RentBetter\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule
         arguments:
             ruleLevel: %rentbetter.ruleLevel%
-
 
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule
@@ -111,11 +106,9 @@ services:
         arguments:
             ruleLevel: %rentbetter.ruleLevel%
 
-
     -
         class: RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule
         arguments:
-            entityNamespaceSegment: %rentbetter.entityNamespaceSegment%
             ruleLevel: %rentbetter.ruleLevel%
 
     -
@@ -139,12 +132,10 @@ services:
             ruleLevel: %rentbetter.ruleLevel%
 
 conditionalTags:
+    RentBetter\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule:
+        phpstan.rules.rule: %rentbetter.forbiddenDependency%
     RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:
         phpstan.rules.rule: %rentbetter.noPublicCollectionReturn%
-    RentBetter\PHPStanRules\Rules\Doctrine\NoEntityManagerInControllerRule:
-        phpstan.rules.rule: %rentbetter.noEntityManagerInController%
-    RentBetter\PHPStanRules\Rules\Doctrine\NoRepositoryInControllerRule:
-        phpstan.rules.rule: %rentbetter.noRepositoryInController%
     RentBetter\PHPStanRules\Rules\Doctrine\NoDirectFlushRule:
         phpstan.rules.rule: %rentbetter.noDirectFlush%
     RentBetter\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule:

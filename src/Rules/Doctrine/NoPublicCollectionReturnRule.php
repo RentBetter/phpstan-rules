@@ -12,6 +12,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Entities should not expose Doctrine Collections from public methods.
@@ -26,7 +27,7 @@ final class NoPublicCollectionReturnRule implements Rule
     private const int MIN_LEVEL = 6;
 
     public function __construct(
-        private readonly string $entityNamespaceSegment = 'Entity',
+        private readonly NamespaceGroupResolver $resolver,
         private readonly ?int $ruleLevel = null,
     ) {}
 
@@ -80,9 +81,6 @@ final class NoPublicCollectionReturnRule implements Rule
 
     private function isEntity(ClassReflection $classReflection): bool
     {
-        $namespaceParts = explode('\\', $classReflection->getName());
-        array_pop($namespaceParts); // remove class name
-
-        return \in_array($this->entityNamespaceSegment, $namespaceParts, true);
+        return $this->resolver->inGroup($classReflection->getName(), 'entity');
     }
 }
