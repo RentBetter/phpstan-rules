@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * The Route name: parameter should match the method name minus the "Action" suffix.
@@ -58,7 +58,7 @@ final class RouteNameMatchesMethodRule implements Rule
                     $expectedRouteName,
                     $methodName,
                 ))
-                    ->identifier('rentbetter.routeNameMatchesMethod')
+                    ->identifier('ptgs.routeNameMatchesMethod')
                     ->line($attr->getStartLine())
                     ->build();
             }

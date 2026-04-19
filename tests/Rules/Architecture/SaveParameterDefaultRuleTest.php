@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Architecture;
+namespace PTGS\PHPStanRules\Tests\Rules\Architecture;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule;
+use PTGS\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule;
 
 /** @extends RuleTestCase<SaveParameterDefaultRule> */
 final class SaveParameterDefaultRuleTest extends RuleTestCase

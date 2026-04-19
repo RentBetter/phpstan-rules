@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Serialization;
+namespace PTGS\PHPStanRules\Tests\Rules\Serialization;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule;
+use PTGS\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule;
 
 /**
  * @extends RuleTestCase<NoNullInJsonSerializeRule>

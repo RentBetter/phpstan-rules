@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules;
+namespace PTGS\PHPStanRules\Tests\Rules;
 
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Default namespace groups used across rule tests. Mirrors the defaults declared

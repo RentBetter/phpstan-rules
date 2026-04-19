@@ -1,4 +1,4 @@
-# rentbetter/phpstan-rules
+# ptgs/phpstan-rules
 
 PHPStan rules for Symfony/Doctrine projects, extracted from [RentBetter](https://rentbetter.com.au) coding conventions.
 
@@ -18,55 +18,55 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `NoPublicCollectionReturnRule` | `rentbetter.noCollectionReturn` | Entity public methods returning `Collection` instead of `array` |
-| `NoDirectFlushRule` | `rentbetter.noDirectFlush` | Calling `->flush()` on `EntityManagerInterface` |
-| `EntityTablePrefixRule` | `rentbetter.entityTablePrefix` | Entities missing `#[ORM\Table(name: 'tbl_...')]` — prefix makes direct table usage searchable |
-| `EntityDeferredExplicitRule` | `rentbetter.entityDeferredExplicit` | Entities missing `#[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]` — prevents accidental flushes, improves performance, and gives control over batch saving and flush timing |
-| `RedundantColumnTypeRule` | `rentbetter.redundantColumnType` | `type: Types::STRING` on `string` properties etc. — Doctrine infers these from the PHP type, so specifying them is noise |
-| `NoHardcodedValueInQueryRule` | `rentbetter.noHardcodedValueInQuery` | Hardcoded numeric/string values in DQL queries — use bound parameters or `$enum->value` |
+| `NoPublicCollectionReturnRule` | `ptgs.noCollectionReturn` | Entity public methods returning `Collection` instead of `array` |
+| `NoDirectFlushRule` | `ptgs.noDirectFlush` | Calling `->flush()` on `EntityManagerInterface` |
+| `EntityTablePrefixRule` | `ptgs.entityTablePrefix` | Entities missing `#[ORM\Table(name: 'tbl_...')]` — prefix makes direct table usage searchable |
+| `EntityDeferredExplicitRule` | `ptgs.entityDeferredExplicit` | Entities missing `#[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]` — prevents accidental flushes, improves performance, and gives control over batch saving and flush timing |
+| `RedundantColumnTypeRule` | `ptgs.redundantColumnType` | `type: Types::STRING` on `string` properties etc. — Doctrine infers these from the PHP type, so specifying them is noise |
+| `NoHardcodedValueInQueryRule` | `ptgs.noHardcodedValueInQuery` | Hardcoded numeric/string values in DQL queries — use bound parameters or `$enum->value` |
 
 ### Symfony Routes
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `NoGenericIdParameterRule` | `rentbetter.noGenericId` | Route methods with param named `$id` (use `$tenancyId` etc.) |
-| `RouteRequiresMethodRule` | `rentbetter.routeRequiresMethod` | `#[Route]` missing `methods:` parameter |
-| `RouteRequiresUuidRequirementRule` | `rentbetter.routeRequiresUuidRequirement` | Route `{fooId}` params without `requirements:` constraint |
-| `ActionMethodNamingRule` | `rentbetter.actionMethodNaming` | Public route methods not ending in `Action` |
-| `RouteNameMatchesMethodRule` | `rentbetter.routeNameMatchesMethod` | Route `name:` doesn't match method minus `Action` suffix |
-| `NoClassLevelRouteRule` | `rentbetter.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path |
-| `RoutePathCamelCaseRule` | `rentbetter.routePathCamelCase` | Route path segments using `snake_case` instead of `camelCase` |
-| `RouteIdParamMustBeStringRule` | `rentbetter.routeIdParamMustBeString` | Route ID parameters not typed as `string` |
-| `RouteMethodSignatureRule` | `rentbetter.routeMethodSignature` | Route methods missing `ApiRequest` first param or `ApiResponse` return type |
-| `RouteRequiresSpecApiRule` | `rentbetter.routeRequiresSpecApi` | Route methods missing `#[Spec\Api]` attribute |
-| `NoGetPayloadInControllerRule` | `rentbetter.noGetPayloadInController` | Controllers calling `getJsonPayload()`/`getPayload()` directly |
-| `NoMultipleRequestParamsInControllerRule` | `rentbetter.noMultipleRequestParamsInController` | Controllers accessing 2+ request parameters — use a form type |
-| `NoRequestGetContentInControllerRule` | `rentbetter.noRequestGetContentInController` | Controllers calling `Request::getContent()` directly |
-| `NoEntityAsFormDataClassRule` | `rentbetter.noEntityAsFormDataClass` | Form types using an entity as `data_class` instead of a DTO |
+| `NoGenericIdParameterRule` | `ptgs.noGenericId` | Route methods with param named `$id` (use `$tenancyId` etc.) |
+| `RouteRequiresMethodRule` | `ptgs.routeRequiresMethod` | `#[Route]` missing `methods:` parameter |
+| `RouteRequiresUuidRequirementRule` | `ptgs.routeRequiresUuidRequirement` | Route `{fooId}` params without `requirements:` constraint |
+| `ActionMethodNamingRule` | `ptgs.actionMethodNaming` | Public route methods not ending in `Action` |
+| `RouteNameMatchesMethodRule` | `ptgs.routeNameMatchesMethod` | Route `name:` doesn't match method minus `Action` suffix |
+| `NoClassLevelRouteRule` | `ptgs.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path |
+| `RoutePathCamelCaseRule` | `ptgs.routePathCamelCase` | Route path segments using `snake_case` instead of `camelCase` |
+| `RouteIdParamMustBeStringRule` | `ptgs.routeIdParamMustBeString` | Route ID parameters not typed as `string` |
+| `RouteMethodSignatureRule` | `ptgs.routeMethodSignature` | Route methods missing `ApiRequest` first param or `ApiResponse` return type |
+| `RouteRequiresSpecApiRule` | `ptgs.routeRequiresSpecApi` | Route methods missing `#[Spec\Api]` attribute |
+| `NoGetPayloadInControllerRule` | `ptgs.noGetPayloadInController` | Controllers calling `getJsonPayload()`/`getPayload()` directly |
+| `NoMultipleRequestParamsInControllerRule` | `ptgs.noMultipleRequestParamsInController` | Controllers accessing 2+ request parameters — use a form type |
+| `NoRequestGetContentInControllerRule` | `ptgs.noRequestGetContentInController` | Controllers calling `Request::getContent()` directly |
+| `NoEntityAsFormDataClassRule` | `ptgs.noEntityAsFormDataClass` | Form types using an entity as `data_class` instead of a DTO |
 
 ### Architecture
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `ForbiddenDependencyRule` | `rentbetter.forbiddenDependency` | Constructor params that violate a configured group→group dependency boundary (see [Dependency Boundaries](#dependency-boundaries)) |
-| `ReadonlyServiceRule` | `rentbetter.readonlyService` | Non-readonly service classes |
-| `NamedArgumentForBooleanRule` | `rentbetter.namedArgumentForBoolean` | Boolean literals passed positionally to project methods |
-| `SaveParameterDefaultRule` | `rentbetter.saveParameterDefault` | `$save`/`$flush` bool params defaulting to `false` instead of `true` |
-| `MoneyReturnTypeRule` | `rentbetter.moneyReturnType` | Public methods returning `MoneyModelV2` instead of `MoneyInterface` |
-| `UseDateFormatterRule` | `rentbetter.useDateFormatter` | Direct `->format()` on DateTime objects instead of `DateFormatter` |
+| `ForbiddenDependencyRule` | `ptgs.forbiddenDependency` | Constructor params that violate a configured group→group dependency boundary (see [Dependency Boundaries](#dependency-boundaries)) |
+| `ReadonlyServiceRule` | `ptgs.readonlyService` | Non-readonly service classes |
+| `NamedArgumentForBooleanRule` | `ptgs.namedArgumentForBoolean` | Boolean literals passed positionally to project methods |
+| `SaveParameterDefaultRule` | `ptgs.saveParameterDefault` | `$save`/`$flush` bool params defaulting to `false` instead of `true` |
+| `MoneyReturnTypeRule` | `ptgs.moneyReturnType` | Public methods returning `MoneyModelV2` instead of `MoneyInterface` |
+| `UseDateFormatterRule` | `ptgs.useDateFormatter` | Direct `->format()` on DateTime objects instead of `DateFormatter` |
 
 ### Serialization
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `NoSnakeCaseJsonKeyRule` | `rentbetter.noSnakeCaseJsonKey` | `jsonSerialize()` returning arrays with `snake_case` keys |
-| `NoNullInJsonSerializeRule` | `rentbetter.noNullInJsonSerialize` | `jsonSerialize()` returning raw arrays without null filtering |
+| `NoSnakeCaseJsonKeyRule` | `ptgs.noSnakeCaseJsonKey` | `jsonSerialize()` returning arrays with `snake_case` keys |
+| `NoNullInJsonSerializeRule` | `ptgs.noNullInJsonSerialize` | `jsonSerialize()` returning raw arrays without null filtering |
 
 ### Enum
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `StatusColumnMustBeEnumRule` | `rentbetter.statusColumnMustBeEnum` | Doctrine `#[Column]` on `*status*` properties without `enumType:` |
+| `StatusColumnMustBeEnumRule` | `ptgs.statusColumnMustBeEnum` | Doctrine `#[Column]` on `*status*` properties without `enumType:` |
 
 ## Configuration
 
@@ -74,7 +74,7 @@ All rules are enabled by default. Disable individual rules in your `phpstan.neon
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         readonlyService: false
         noDirectFlush: false
 ```
@@ -86,7 +86,7 @@ suppress custom rules at lower levels, set `ruleLevel` to the desired threshold:
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         ruleLevel: 5   # only architecture rules (level 5+) will fire
 ```
 
@@ -120,7 +120,7 @@ Defaults shipped in `extension.neon`:
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         groups:
             controller: ['~\\Controller\\~']
             service:    ['~\\Services?\\~', '~\\Helpers?\\~']
@@ -140,7 +140,7 @@ Override any group in your `phpstan.neon` to fit your project's namespace layout
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         groups:
             project: ['~^Acme\\\\~']
 ```
@@ -156,7 +156,7 @@ Defaults:
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         forbiddenDependencies:
             controller:
                 - group: dbAccess
@@ -178,7 +178,7 @@ To add a new boundary, append to the map:
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         forbiddenDependencies:
             command:
                 - group: dbAccess
@@ -193,7 +193,7 @@ of an interface if those are also injected directly.
 
 ```neon
 parameters:
-    rentbetter:
+    ptgs:
         # Function name for NoNullInJsonSerializeRule (default: array_filter_nulls)
         nullFilterFunction: array_filter_nulls
 ```
@@ -203,25 +203,25 @@ parameters:
 ### Before
 
 ```php
-// rentbetter.forbiddenDependency (controller → dbAccess)
+// ptgs.forbiddenDependency (controller → dbAccess)
 class UserController {
     public function __construct(
         private EntityManagerInterface $em,
     ) {}
 }
 
-// rentbetter.noGenericId
+// ptgs.noGenericId
 #[Route('/users/{id}', methods: 'GET')]
 public function getUserAction(string $id) {}
 
-// rentbetter.routeRequiresMethod
+// ptgs.routeRequiresMethod
 #[Route('/users')]
 public function listUsersAction() {}
 
-// rentbetter.namedArgumentForBoolean
+// ptgs.namedArgumentForBoolean
 $service->save($entity, true);
 
-// rentbetter.noSnakeCaseJsonKey
+// ptgs.noSnakeCaseJsonKey
 public function jsonSerialize(): array {
     return ['first_name' => $this->firstName];
 }

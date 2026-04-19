@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Serialization;
+namespace PTGS\PHPStanRules\Rules\Serialization;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * JSON keys in jsonSerialize() methods must use camelCase, not snake_case.
@@ -59,7 +59,7 @@ final class NoSnakeCaseJsonKeyRule implements Rule
                         'JSON key \'%s\' in jsonSerialize() uses snake_case. Use camelCase instead.',
                         $item->key->value,
                     ))
-                        ->identifier('rentbetter.noSnakeCaseJsonKey')
+                        ->identifier('ptgs.noSnakeCaseJsonKey')
                         ->line($item->key->getStartLine())
                         ->build();
                 }

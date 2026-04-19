@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules;
+namespace PTGS\PHPStanRules\Rules;
 
 /**
  * Trait for rules that should only fire at or above a certain PHPStan level.

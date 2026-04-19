@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Rules\Doctrine;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -11,8 +11,8 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Entities should not expose Doctrine Collections from public methods.
@@ -71,7 +71,7 @@ final class NoPublicCollectionReturnRule implements Rule
                     $classReflection->getName(),
                     $methodName,
                 ))
-                    ->identifier('rentbetter.noCollectionReturn')
+                    ->identifier('ptgs.noCollectionReturn')
                     ->build(),
             ];
         }

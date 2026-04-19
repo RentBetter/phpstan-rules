@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Serialization;
+namespace PTGS\PHPStanRules\Rules\Serialization;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * jsonSerialize() methods should not return raw arrays.
@@ -59,7 +59,7 @@ final class NoNullInJsonSerializeRule implements Rule
                     'jsonSerialize() returns a raw array. Wrap it in %s() to strip null values.',
                     $this->filterFunction,
                 ))
-                    ->identifier('rentbetter.noNullInJsonSerialize')
+                    ->identifier('ptgs.noNullInJsonSerialize')
                     ->line($return->getStartLine())
                     ->build();
             }

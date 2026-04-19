@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -11,8 +11,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Controllers must not inspect request payload directly.
@@ -65,7 +65,7 @@ final class NoGetPayloadInControllerRule implements Rule
             RuleErrorBuilder::message(
                 'Avoid inspecting request payload in controllers. Pass ApiRequest to a service instead.',
             )
-                ->identifier('rentbetter.noGetPayloadInController')
+                ->identifier('ptgs.noGetPayloadInController')
                 ->build(),
         ];
     }

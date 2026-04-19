@@ -1,10 +1,10 @@
 {
-    "name": "rentbetter/phpstan-rules",
+    "name": "ptgs/phpstan-rules",
     "description": "PHPStan rules for RentBetter coding conventions — Doctrine, Symfony routes, architecture, and serialization.",
     "type": "phpstan-extension",
     "license": "MIT",
     "keywords": ["phpstan", "static-analysis", "symfony", "doctrine", "coding-standards"],
-    "homepage": "https://github.com/rentbetter/phpstan-rules",
+    "homepage": "https://github.com/RentBetter/phpstan-rules",
     "require": {
         "php": ">=8.4",
         "phpstan/phpstan": "^2.0"
@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RentBetter\\PHPStanRules\\": "src/"
+            "PTGS\\PHPStanRules\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RentBetter\\PHPStanRules\\Tests\\": "tests/"
+            "PTGS\\PHPStanRules\\Tests\\": "tests/"
         }
     },
     "extra": {

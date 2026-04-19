@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Rules\Doctrine;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
@@ -15,7 +15,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Detects hardcoded numeric/string values in DQL queries that should use
@@ -116,13 +116,13 @@ final class NoHardcodedValueInQueryRule implements Rule
                 $errors[] = RuleErrorBuilder::message(
                     'Hardcoded numeric value in DQL IN() clause. Use a bound parameter (:param) or $enum->value instead.',
                 )
-                    ->identifier('rentbetter.noHardcodedValueInQuery')
+                    ->identifier('ptgs.noHardcodedValueInQuery')
                     ->build();
             } elseif (preg_match(self::COMPARISON_PATTERN, $dql)) {
                 $errors[] = RuleErrorBuilder::message(
                     'Hardcoded numeric value in DQL comparison. Use a bound parameter (:param) or $enum->value instead.',
                 )
-                    ->identifier('rentbetter.noHardcodedValueInQuery')
+                    ->identifier('ptgs.noHardcodedValueInQuery')
                     ->build();
             }
         }
@@ -189,7 +189,7 @@ final class NoHardcodedValueInQueryRule implements Rule
         return RuleErrorBuilder::message(
             'Hardcoded value in query expression. Use a bound parameter (:param) or $enum->value instead.',
         )
-            ->identifier('rentbetter.noHardcodedValueInQuery')
+            ->identifier('ptgs.noHardcodedValueInQuery')
             ->build();
     }
 }

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Tests\Rules\Doctrine;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule;
-use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
+use PTGS\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule;
+use PTGS\PHPStanRules\Tests\Rules\TestGroups;
 
 /**
  * @extends RuleTestCase<NoPublicCollectionReturnRule>

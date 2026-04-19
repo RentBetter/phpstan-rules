@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -10,7 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route parameters ending in "Id" must be typed as string in the method signature,
@@ -81,21 +81,21 @@ final class RouteIdParamMustBeStringRule implements Rule
                 $errors[] = RuleErrorBuilder::message(
                     \sprintf('Route ID parameter $%s must be typed as string.', $paramName),
                 )
-                    ->identifier('rentbetter.routeIdParamMustBeString')
+                    ->identifier('ptgs.routeIdParamMustBeString')
                     ->build();
             } elseif ($param->type instanceof Node\Identifier) {
                 if ('string' !== $param->type->name) {
                     $errors[] = RuleErrorBuilder::message(
                         \sprintf('Route ID parameter $%s must be typed as string, got %s.', $paramName, $param->type->name),
                     )
-                        ->identifier('rentbetter.routeIdParamMustBeString')
+                        ->identifier('ptgs.routeIdParamMustBeString')
                         ->build();
                 }
             } elseif ($param->type instanceof Node\Name) {
                 $errors[] = RuleErrorBuilder::message(
                     \sprintf('Route ID parameter $%s must be typed as string, got %s.', $paramName, $param->type->toString()),
                 )
-                    ->identifier('rentbetter.routeIdParamMustBeString')
+                    ->identifier('ptgs.routeIdParamMustBeString')
                     ->build();
             }
         }

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Rules\Doctrine;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Flags #[ORM\Column(type: ...)] where the type is already inferred from the PHP property type.
@@ -82,7 +82,7 @@ final class RedundantColumnTypeRule implements Rule
                     $phpType,
                     $node->props[0]->name->name,
                 ))
-                    ->identifier('rentbetter.redundantColumnType')
+                    ->identifier('ptgs.redundantColumnType')
                     ->line($columnAttr->getStartLine())
                     ->build(),
             ];
@@ -96,7 +96,7 @@ final class RedundantColumnTypeRule implements Rule
                     $phpType,
                     $node->props[0]->name->name,
                 ))
-                    ->identifier('rentbetter.redundantColumnType')
+                    ->identifier('ptgs.redundantColumnType')
                     ->line($columnAttr->getStartLine())
                     ->build(),
             ];

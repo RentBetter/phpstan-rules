@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Enum;
+namespace PTGS\PHPStanRules\Tests\Rules\Enum;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule;
+use PTGS\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule;
 
 /**
  * @extends RuleTestCase<StatusColumnMustBeEnumRule>

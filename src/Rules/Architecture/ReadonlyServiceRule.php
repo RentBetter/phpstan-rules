@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Architecture;
+namespace PTGS\PHPStanRules\Rules\Architecture;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
@@ -11,8 +11,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Service classes should be declared readonly — but only when it's actually possible:
@@ -79,7 +79,7 @@ final class ReadonlyServiceRule implements Rule
                 'Service class %s should be declared readonly.',
                 $fqcn,
             ))
-                ->identifier('rentbetter.readonlyService')
+                ->identifier('ptgs.readonlyService')
                 ->build(),
         ];
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -10,8 +10,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Controllers should not call Request::getContent() directly.
@@ -62,7 +62,7 @@ final class NoRequestGetContentInControllerRule implements Rule
                 RuleErrorBuilder::message(
                     'Avoid calling Request::getContent() in controllers. Use #[MapRequestPayload] with a typed DTO instead.',
                 )
-                    ->identifier('rentbetter.noRequestGetContentInController')
+                    ->identifier('ptgs.noRequestGetContentInController')
                     ->build(),
             ];
         }

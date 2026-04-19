@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Architecture;
+namespace PTGS\PHPStanRules\Tests\Rules\Architecture;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule;
-use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
+use PTGS\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule;
+use PTGS\PHPStanRules\Tests\Rules\TestGroups;
 
 /**
  * @extends RuleTestCase<NamedArgumentForBooleanRule>

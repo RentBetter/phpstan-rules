@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules;
+namespace PTGS\PHPStanRules\Tests\Rules;
 
 use PHPStan\Type\ObjectType;
 use PHPUnit\Framework\TestCase;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Unit tests for FQCN-string matching paths. The type-aware `inGroupByType()` subtype
- * matching is exercised via {@see \RentBetter\PHPStanRules\Tests\Rules\Architecture\ForbiddenDependencyRuleTest},
+ * matching is exercised via {@see \PTGS\PHPStanRules\Tests\Rules\Architecture\ForbiddenDependencyRuleTest},
  * which runs inside PHPStan's `RuleTestCase` (it bootstraps the reflection provider
  * required for `ObjectType::isSuperTypeOf()`).
  */

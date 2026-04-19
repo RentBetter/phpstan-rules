@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -10,7 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route path segments must use camelCase, not snake_case.
@@ -64,7 +64,7 @@ final class RoutePathCamelCaseRule implements Rule
                     $errors[] = RuleErrorBuilder::message(
                         \sprintf('Route path segment "%s" uses snake_case. Use camelCase instead.', $segment),
                     )
-                        ->identifier('rentbetter.routePathCamelCase')
+                        ->identifier('ptgs.routePathCamelCase')
                         ->build();
                     break; // One error per route is enough
                 }

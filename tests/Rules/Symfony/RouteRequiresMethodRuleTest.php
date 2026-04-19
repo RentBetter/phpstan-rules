@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Symfony;
+namespace PTGS\PHPStanRules\Tests\Rules\Symfony;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule;
+use PTGS\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule;
 
 /**
  * @extends RuleTestCase<RouteRequiresMethodRule>

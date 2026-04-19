@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route methods should use descriptive ID parameter names like $tenancyId,
@@ -52,7 +52,7 @@ final class NoGenericIdParameterRule implements Rule
                     RuleErrorBuilder::message(
                         'Route parameter should use a descriptive name like $tenancyId instead of $id.',
                     )
-                        ->identifier('rentbetter.noGenericId')
+                        ->identifier('ptgs.noGenericId')
                         ->line($param->getStartLine())
                         ->build(),
                 ];

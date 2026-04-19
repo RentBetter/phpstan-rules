@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Enum;
+namespace PTGS\PHPStanRules\Rules\Enum;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Doctrine #[Column] attributes on properties containing "status" in their name
@@ -57,7 +57,7 @@ final class StatusColumnMustBeEnumRule implements Rule
                     'Status property $%s has a #[Column] without enumType:. Use #[Column(enumType: MyStatusEnum::class)].',
                     $propName,
                 ))
-                    ->identifier('rentbetter.statusColumnMustBeEnum')
+                    ->identifier('ptgs.statusColumnMustBeEnum')
                     ->line($columnAttr->getStartLine())
                     ->build();
             }

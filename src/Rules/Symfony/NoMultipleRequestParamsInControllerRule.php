@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -14,8 +14,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Controller route methods accessing more than one request parameter directly
@@ -82,7 +82,7 @@ final class NoMultipleRequestParamsInControllerRule implements Rule
                     implode(', ', array_keys($params)),
                 ),
             )
-                ->identifier('rentbetter.noMultipleRequestParamsInController')
+                ->identifier('ptgs.noMultipleRequestParamsInController')
                 ->build(),
         ];
     }

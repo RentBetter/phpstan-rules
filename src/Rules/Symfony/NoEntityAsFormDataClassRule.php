@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
@@ -16,8 +16,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Form types must use a dedicated FormData DTO as data_class, not an entity.
@@ -84,7 +84,7 @@ final class NoEntityAsFormDataClassRule implements Rule
                             $className,
                         ),
                     )
-                        ->identifier('rentbetter.noEntityAsFormDataClass')
+                        ->identifier('ptgs.noEntityAsFormDataClass')
                         ->build(),
                 ];
             }

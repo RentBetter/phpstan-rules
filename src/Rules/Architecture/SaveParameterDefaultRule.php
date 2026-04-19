@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Architecture;
+namespace PTGS\PHPStanRules\Rules\Architecture;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
@@ -11,7 +11,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Public methods with a $save or $flush bool parameter should default to true.
@@ -78,7 +78,7 @@ final class SaveParameterDefaultRule implements Rule
                 $errors[] = RuleErrorBuilder::message(
                     \sprintf('Public method $%s parameter should default to true, not false.', $name),
                 )
-                    ->identifier('rentbetter.saveParameterDefault')
+                    ->identifier('ptgs.saveParameterDefault')
                     ->build();
             }
         }

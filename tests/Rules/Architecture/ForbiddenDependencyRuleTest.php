@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Architecture;
+namespace PTGS\PHPStanRules\Tests\Rules\Architecture;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * @extends RuleTestCase<ForbiddenDependencyRule>

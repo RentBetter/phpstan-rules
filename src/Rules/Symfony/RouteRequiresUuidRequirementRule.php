@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Route path parameters ending in "Id" (e.g. {tenancyId}) must have
@@ -59,7 +59,7 @@ final class RouteRequiresUuidRequirementRule implements Rule
                         'Route parameter {%s} should have a requirements: constraint (e.g. Uuid::REGEX).',
                         $paramName,
                     ))
-                        ->identifier('rentbetter.routeRequiresUuidRequirement')
+                        ->identifier('ptgs.routeRequiresUuidRequirement')
                         ->line($attr->getStartLine())
                         ->build();
                 }

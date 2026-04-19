@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Architecture;
+namespace PTGS\PHPStanRules\Rules\Architecture;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\CallLike;
@@ -11,8 +11,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Boolean literals (true/false) should be passed as named arguments
@@ -78,7 +78,7 @@ final class NamedArgumentForBooleanRule implements Rule
                 'Boolean literal %s should be passed as a named argument for readability.',
                 $constName,
             ))
-                ->identifier('rentbetter.namedArgumentForBoolean')
+                ->identifier('ptgs.namedArgumentForBoolean')
                 ->line($arg->getStartLine())
                 ->build();
         }

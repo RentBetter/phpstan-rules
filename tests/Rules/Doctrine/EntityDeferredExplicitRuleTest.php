@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Tests\Rules\Doctrine;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule;
+use PTGS\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule;
 
 /**
  * @extends RuleTestCase<EntityDeferredExplicitRule>

@@ -1,184 +1,184 @@
 services:
     -
-        class: RentBetter\PHPStanRules\Rules\NamespaceGroupResolver
+        class: PTGS\PHPStanRules\Rules\NamespaceGroupResolver
         arguments:
-            groups: %rentbetter.groups%
+            groups: %ptgs.groups%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule
+        class: PTGS\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule
         arguments:
-            forbiddenDependencies: %rentbetter.forbiddenDependencies%
-            ruleLevel: %rentbetter.ruleLevel%
+            forbiddenDependencies: %ptgs.forbiddenDependencies%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule
+        class: PTGS\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\NoDirectFlushRule
+        class: PTGS\PHPStanRules\Rules\Doctrine\NoDirectFlushRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule
+        class: PTGS\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule
+        class: PTGS\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule
+        class: PTGS\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\ActionMethodNamingRule
+        class: PTGS\PHPStanRules\Rules\Symfony\ActionMethodNamingRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule
+        class: PTGS\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule
+        class: PTGS\PHPStanRules\Rules\Architecture\ReadonlyServiceRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule
+        class: PTGS\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule
+        class: PTGS\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule
+        class: PTGS\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule
         arguments:
-            filterFunction: %rentbetter.nullFilterFunction%
-            ruleLevel: %rentbetter.ruleLevel%
+            filterFunction: %ptgs.nullFilterFunction%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule
+        class: PTGS\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule
+        class: PTGS\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule
+        class: PTGS\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule
+        class: PTGS\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule
+        class: PTGS\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule
+        class: PTGS\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule
+        class: PTGS\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule
+        class: PTGS\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule
+        class: PTGS\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule
+        class: PTGS\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule
+        class: PTGS\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule
+        class: PTGS\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: RentBetter\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule
+        class: PTGS\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule
         arguments:
-            ruleLevel: %rentbetter.ruleLevel%
+            ruleLevel: %ptgs.ruleLevel%
 
 conditionalTags:
-    RentBetter\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule:
-        phpstan.rules.rule: %rentbetter.forbiddenDependency%
-    RentBetter\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:
-        phpstan.rules.rule: %rentbetter.noPublicCollectionReturn%
-    RentBetter\PHPStanRules\Rules\Doctrine\NoDirectFlushRule:
-        phpstan.rules.rule: %rentbetter.noDirectFlush%
-    RentBetter\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule:
-        phpstan.rules.rule: %rentbetter.noGenericId%
-    RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule:
-        phpstan.rules.rule: %rentbetter.routeRequiresMethod%
-    RentBetter\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule:
-        phpstan.rules.rule: %rentbetter.routeRequiresUuidRequirement%
-    RentBetter\PHPStanRules\Rules\Symfony\ActionMethodNamingRule:
-        phpstan.rules.rule: %rentbetter.actionMethodNaming%
-    RentBetter\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule:
-        phpstan.rules.rule: %rentbetter.routeNameMatchesMethod%
-    RentBetter\PHPStanRules\Rules\Architecture\ReadonlyServiceRule:
-        phpstan.rules.rule: %rentbetter.readonlyService%
-    RentBetter\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule:
-        phpstan.rules.rule: %rentbetter.namedArgumentForBoolean%
-    RentBetter\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule:
-        phpstan.rules.rule: %rentbetter.noSnakeCaseJsonKey%
-    RentBetter\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule:
-        phpstan.rules.rule: %rentbetter.noNullInJsonSerialize%
-    RentBetter\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule:
-        phpstan.rules.rule: %rentbetter.noRequestGetContentInController%
-    RentBetter\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule:
-        phpstan.rules.rule: %rentbetter.statusColumnMustBeEnum%
-    RentBetter\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule:
-        phpstan.rules.rule: %rentbetter.noHardcodedValueInQuery%
-    RentBetter\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule:
-        phpstan.rules.rule: %rentbetter.routePathCamelCase%
-    RentBetter\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule:
-        phpstan.rules.rule: %rentbetter.routeIdParamMustBeString%
-    RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule:
-        phpstan.rules.rule: %rentbetter.noGetPayloadInController%
-    RentBetter\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule:
-        phpstan.rules.rule: %rentbetter.noMultipleRequestParamsInController%
-    RentBetter\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule:
-        phpstan.rules.rule: %rentbetter.saveParameterDefault%
-    RentBetter\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule:
-        phpstan.rules.rule: %rentbetter.noEntityAsFormDataClass%
-    RentBetter\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule:
-        phpstan.rules.rule: %rentbetter.noClassLevelRoute%
-    RentBetter\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule:
-        phpstan.rules.rule: %rentbetter.entityTablePrefix%
-    RentBetter\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule:
-        phpstan.rules.rule: %rentbetter.entityDeferredExplicit%
-    RentBetter\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule:
-        phpstan.rules.rule: %rentbetter.redundantColumnType%
+    PTGS\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule:
+        phpstan.rules.rule: %ptgs.forbiddenDependency%
+    PTGS\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:
+        phpstan.rules.rule: %ptgs.noPublicCollectionReturn%
+    PTGS\PHPStanRules\Rules\Doctrine\NoDirectFlushRule:
+        phpstan.rules.rule: %ptgs.noDirectFlush%
+    PTGS\PHPStanRules\Rules\Symfony\NoGenericIdParameterRule:
+        phpstan.rules.rule: %ptgs.noGenericId%
+    PTGS\PHPStanRules\Rules\Symfony\RouteRequiresMethodRule:
+        phpstan.rules.rule: %ptgs.routeRequiresMethod%
+    PTGS\PHPStanRules\Rules\Symfony\RouteRequiresUuidRequirementRule:
+        phpstan.rules.rule: %ptgs.routeRequiresUuidRequirement%
+    PTGS\PHPStanRules\Rules\Symfony\ActionMethodNamingRule:
+        phpstan.rules.rule: %ptgs.actionMethodNaming%
+    PTGS\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule:
+        phpstan.rules.rule: %ptgs.routeNameMatchesMethod%
+    PTGS\PHPStanRules\Rules\Architecture\ReadonlyServiceRule:
+        phpstan.rules.rule: %ptgs.readonlyService%
+    PTGS\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule:
+        phpstan.rules.rule: %ptgs.namedArgumentForBoolean%
+    PTGS\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule:
+        phpstan.rules.rule: %ptgs.noSnakeCaseJsonKey%
+    PTGS\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule:
+        phpstan.rules.rule: %ptgs.noNullInJsonSerialize%
+    PTGS\PHPStanRules\Rules\Symfony\NoRequestGetContentInControllerRule:
+        phpstan.rules.rule: %ptgs.noRequestGetContentInController%
+    PTGS\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule:
+        phpstan.rules.rule: %ptgs.statusColumnMustBeEnum%
+    PTGS\PHPStanRules\Rules\Doctrine\NoHardcodedValueInQueryRule:
+        phpstan.rules.rule: %ptgs.noHardcodedValueInQuery%
+    PTGS\PHPStanRules\Rules\Symfony\RoutePathCamelCaseRule:
+        phpstan.rules.rule: %ptgs.routePathCamelCase%
+    PTGS\PHPStanRules\Rules\Symfony\RouteIdParamMustBeStringRule:
+        phpstan.rules.rule: %ptgs.routeIdParamMustBeString%
+    PTGS\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule:
+        phpstan.rules.rule: %ptgs.noGetPayloadInController%
+    PTGS\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule:
+        phpstan.rules.rule: %ptgs.noMultipleRequestParamsInController%
+    PTGS\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule:
+        phpstan.rules.rule: %ptgs.saveParameterDefault%
+    PTGS\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule:
+        phpstan.rules.rule: %ptgs.noEntityAsFormDataClass%
+    PTGS\PHPStanRules\Rules\Symfony\NoClassLevelRouteRule:
+        phpstan.rules.rule: %ptgs.noClassLevelRoute%
+    PTGS\PHPStanRules\Rules\Doctrine\EntityTablePrefixRule:
+        phpstan.rules.rule: %ptgs.entityTablePrefix%
+    PTGS\PHPStanRules\Rules\Doctrine\EntityDeferredExplicitRule:
+        phpstan.rules.rule: %ptgs.entityDeferredExplicit%
+    PTGS\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule:
+        phpstan.rules.rule: %ptgs.redundantColumnType%

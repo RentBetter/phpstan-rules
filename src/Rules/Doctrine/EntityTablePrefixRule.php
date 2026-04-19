@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Rules\Doctrine;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Entities with #[ORM\Entity] must have #[ORM\Table(name: 'tbl_...')] with a tbl_ prefix.
@@ -52,7 +52,7 @@ final class EntityTablePrefixRule implements Rule
                     'Entity %s is missing #[ORM\\Table(name: \'tbl_...\')]. The tbl_ prefix makes direct table usage searchable across the project.',
                     $node->name->name ?? '(anonymous)',
                 ))
-                    ->identifier('rentbetter.entityTablePrefix')
+                    ->identifier('ptgs.entityTablePrefix')
                     ->build(),
             ];
         }
@@ -74,7 +74,7 @@ final class EntityTablePrefixRule implements Rule
                     'Entity %s has #[ORM\\Table] without a name argument. Specify name: \'tbl_...\'.',
                     $node->name->name ?? '(anonymous)',
                 ))
-                    ->identifier('rentbetter.entityTablePrefix')
+                    ->identifier('ptgs.entityTablePrefix')
                     ->line($tableAttr->getStartLine())
                     ->build(),
             ];
@@ -87,7 +87,7 @@ final class EntityTablePrefixRule implements Rule
                     $node->name->name ?? '(anonymous)',
                     $name,
                 ))
-                    ->identifier('rentbetter.entityTablePrefix')
+                    ->identifier('ptgs.entityTablePrefix')
                     ->line($tableAttr->getStartLine())
                     ->build(),
             ];

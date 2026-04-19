@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules;
+namespace PTGS\PHPStanRules\Rules;
 
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;

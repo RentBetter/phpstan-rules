@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Every #[Route] attribute must specify the HTTP methods: parameter.
@@ -46,7 +46,7 @@ final class RouteRequiresMethodRule implements Rule
                     'Route on %s() is missing the methods: parameter. Specify methods: \'GET\' (or POST, PUT, DELETE).',
                     $node->name->name,
                 ))
-                    ->identifier('rentbetter.routeRequiresMethod')
+                    ->identifier('ptgs.routeRequiresMethod')
                     ->line($attr->getStartLine())
                     ->build();
             }

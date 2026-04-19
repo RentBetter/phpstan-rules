@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Rules\Doctrine;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Entities with #[ORM\Entity] must also have #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')].
@@ -55,7 +55,7 @@ final class EntityDeferredExplicitRule implements Rule
                 'Entity %s is missing #[ORM\\ChangeTrackingPolicy(\'DEFERRED_EXPLICIT\')]. All entities must use deferred explicit change tracking.',
                 $node->name->name ?? '(anonymous)',
             ))
-                ->identifier('rentbetter.entityDeferredExplicit')
+                ->identifier('ptgs.entityDeferredExplicit')
                 ->build(),
         ];
     }

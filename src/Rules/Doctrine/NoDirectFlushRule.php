@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Doctrine;
+namespace PTGS\PHPStanRules\Rules\Doctrine;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -10,7 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Direct calls to EntityManagerInterface::flush() are discouraged.
@@ -55,7 +55,7 @@ final class NoDirectFlushRule implements Rule
                 RuleErrorBuilder::message(
                     'Avoid calling EntityManagerInterface::flush() directly. Use a service with a $save parameter instead.',
                 )
-                    ->identifier('rentbetter.noDirectFlush')
+                    ->identifier('ptgs.noDirectFlush')
                     ->build(),
             ];
         }

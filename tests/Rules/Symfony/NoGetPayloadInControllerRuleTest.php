@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Tests\Rules\Symfony;
+namespace PTGS\PHPStanRules\Tests\Rules\Symfony;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use RentBetter\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule;
-use RentBetter\PHPStanRules\Tests\Rules\TestGroups;
+use PTGS\PHPStanRules\Rules\Symfony\NoGetPayloadInControllerRule;
+use PTGS\PHPStanRules\Tests\Rules\TestGroups;
 
 /** @extends RuleTestCase<NoGetPayloadInControllerRule> */
 final class NoGetPayloadInControllerRuleTest extends RuleTestCase

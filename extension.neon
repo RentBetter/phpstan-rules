@@ -2,7 +2,7 @@ includes:
     - rules.neon
 
 parametersSchema:
-    rentbetter: structure([
+    ptgs: structure([
         noPublicCollectionReturn: schema(bool(), nullable())
         noDirectFlush: schema(bool(), nullable())
         noGenericId: schema(bool(), nullable())
@@ -38,7 +38,7 @@ parametersSchema:
     ])
 
 parameters:
-    rentbetter:
+    ptgs:
         noPublicCollectionReturn: true
         noDirectFlush: true
         noGenericId: true

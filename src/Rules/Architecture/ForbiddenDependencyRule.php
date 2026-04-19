@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Architecture;
+namespace PTGS\PHPStanRules\Rules\Architecture;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
@@ -10,8 +10,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
-use RentBetter\PHPStanRules\Rules\NamespaceGroupResolver;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Enforces dependency boundaries between namespace groups.
@@ -88,7 +88,7 @@ final class ForbiddenDependencyRule implements Rule
                         $forbidden['group'],
                         $forbidden['reason'],
                     ))
-                        ->identifier('rentbetter.forbiddenDependency')
+                        ->identifier('ptgs.forbiddenDependency')
                         ->line($param->getStartLine())
                         ->build();
                 }

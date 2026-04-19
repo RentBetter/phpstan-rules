@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RentBetter\PHPStanRules\Rules\Symfony;
+namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use RentBetter\PHPStanRules\Rules\LevelAwareRule;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Forbids #[Route] on the controller class itself.
@@ -53,7 +53,7 @@ final class NoClassLevelRouteRule implements Rule
                             'Class %s has a class-level #[Route] attribute. Define the full route path on each action method instead — class-level prefixes hide the real path and make routes unsearchable.',
                             $node->name->name ?? '(anonymous)',
                         ))
-                            ->identifier('rentbetter.noClassLevelRoute')
+                            ->identifier('ptgs.noClassLevelRoute')
                             ->line($attr->getStartLine())
                             ->build(),
                     ];
