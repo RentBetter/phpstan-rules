@@ -22,8 +22,12 @@ final class RouteNameMatchesMethodRuleTest extends RuleTestCase
     {
         $this->analyse([__DIR__ . '/data/route-name-matches-method.php'], [
             [
-                "Route name 'getAllThings' does not match method name. Expected 'listThings' (from listThingsAction()).",
+                "Route name 'getAllThings' does not match method name. Expected 'listThings' or '<prefix>:listThings' (from listThingsAction()).",
                 9,
+            ],
+            [
+                "Route name 'sprockets:listAll' does not match method name. Expected 'listSprockets' or '<prefix>:listSprockets' (from listSprocketsAction()).",
+                29,
             ],
         ]);
     }

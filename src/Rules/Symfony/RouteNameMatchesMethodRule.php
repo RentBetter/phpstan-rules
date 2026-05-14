@@ -12,8 +12,14 @@ use PHPStan\Rules\RuleErrorBuilder;
 use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
- * The Route name: parameter should match the method name minus the "Action" suffix.
- * e.g. name: 'getTenancy' → getTenancyAction()
+ * The Route name: parameter must end in the method name minus the "Action" suffix,
+ * optionally preceded by one or more `prefix:` segments matching the documented
+ * pattern `{prefix}:{domain}:{subdomain}:{method}`.
+ *
+ * Examples (all OK for getThingAction()):
+ *   name: 'getThing'
+ *   name: 'admin:getThing'
+ *   name: 'admin:things:getThing'
  *
  * @implements Rule<ClassMethod>
  */
@@ -51,10 +57,15 @@ final class RouteNameMatchesMethodRule implements Rule
                 ? substr($methodName, 0, -6)
                 : $methodName;
 
-            if ($routeName !== $expectedRouteName) {
+            $lastSegment = false !== ($colonAt = strrpos($routeName, ':'))
+                ? substr($routeName, $colonAt + 1)
+                : $routeName;
+
+            if ($lastSegment !== $expectedRouteName) {
                 $errors[] = RuleErrorBuilder::message(\sprintf(
-                    'Route name \'%s\' does not match method name. Expected \'%s\' (from %s()).',
+                    'Route name \'%s\' does not match method name. Expected \'%s\' or \'<prefix>:%s\' (from %s()).',
                     $routeName,
+                    $expectedRouteName,
                     $expectedRouteName,
                     $methodName,
                 ))
