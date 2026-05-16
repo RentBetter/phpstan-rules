@@ -13,6 +13,7 @@ parametersSchema:
         readonlyService: schema(bool(), nullable())
         redundantReadonlyInReadonlyClass: schema(bool(), nullable())
         namedArgumentForBoolean: schema(bool(), nullable())
+        namedArgumentOrder: schema(bool(), nullable())
         noSnakeCaseJsonKey: schema(bool(), nullable())
         noNullInJsonSerialize: schema(bool(), nullable())
         noRequestGetContentInController: schema(bool(), nullable())
@@ -51,6 +52,7 @@ parameters:
         readonlyService: true
         redundantReadonlyInReadonlyClass: true
         namedArgumentForBoolean: true
+        namedArgumentOrder: true
         noSnakeCaseJsonKey: true
         noNullInJsonSerialize: true
         noRequestGetContentInController: true

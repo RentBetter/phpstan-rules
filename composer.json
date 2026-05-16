@@ -20,7 +20,10 @@
     "autoload-dev": {
         "psr-4": {
             "PTGS\\PHPStanRules\\Tests\\": "tests/"
-        }
+        },
+        "classmap": [
+            "tests/Rules/Architecture/data/named-argument-order.php"
+        ]
     },
     "extra": {
         "phpstan": {
