@@ -136,6 +136,11 @@ services:
         arguments:
             ruleLevel: %ptgs.ruleLevel%
 
+    -
+        class: PTGS\PHPStanRules\Rules\Doctrine\RedundantJoinColumnRule
+        arguments:
+            ruleLevel: %ptgs.ruleLevel%
+
 conditionalTags:
     PTGS\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule:
         phpstan.rules.rule: %ptgs.forbiddenDependency%
@@ -189,3 +194,5 @@ conditionalTags:
         phpstan.rules.rule: %ptgs.entityDeferredExplicit%
     PTGS\PHPStanRules\Rules\Doctrine\RedundantColumnTypeRule:
         phpstan.rules.rule: %ptgs.redundantColumnType%
+    PTGS\PHPStanRules\Rules\Doctrine\RedundantJoinColumnRule:
+        phpstan.rules.rule: %ptgs.redundantJoinColumn%
