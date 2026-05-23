@@ -15,7 +15,7 @@ use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
  * Controllers should not call Request::getContent() directly.
- * Use #[MapRequestPayload] with a typed DTO instead.
+ * Use the Form component to bind the request into a typed DTO instead.
  *
  * @implements Rule<MethodCall>
  */
@@ -60,7 +60,7 @@ final class NoRequestGetContentInControllerRule implements Rule
         if ($requestType->isSuperTypeOf($callerType)->yes()) {
             return [
                 RuleErrorBuilder::message(
-                    'Avoid calling Request::getContent() in controllers. Use #[MapRequestPayload] with a typed DTO instead.',
+                    'Avoid calling Request::getContent() in controllers. Use the Form component to bind the request into a typed DTO instead.',
                 )
                     ->identifier('ptgs.noRequestGetContentInController')
                     ->build(),

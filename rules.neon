@@ -112,6 +112,11 @@ services:
             ruleLevel: %ptgs.ruleLevel%
 
     -
+        class: PTGS\PHPStanRules\Rules\Symfony\NoJsonDecodeInControllerRule
+        arguments:
+            ruleLevel: %ptgs.ruleLevel%
+
+    -
         class: PTGS\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule
         arguments:
             ruleLevel: %ptgs.ruleLevel%
@@ -189,6 +194,8 @@ conditionalTags:
         phpstan.rules.rule: %ptgs.noGetPayloadInController%
     PTGS\PHPStanRules\Rules\Symfony\NoMultipleRequestParamsInControllerRule:
         phpstan.rules.rule: %ptgs.noMultipleRequestParamsInController%
+    PTGS\PHPStanRules\Rules\Symfony\NoJsonDecodeInControllerRule:
+        phpstan.rules.rule: %ptgs.noJsonDecodeInController%
     PTGS\PHPStanRules\Rules\Architecture\SaveParameterDefaultRule:
         phpstan.rules.rule: %ptgs.saveParameterDefault%
     PTGS\PHPStanRules\Rules\Symfony\NoEntityAsFormDataClassRule:

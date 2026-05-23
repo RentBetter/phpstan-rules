@@ -20,8 +20,8 @@ final class NoGetPayloadInControllerRuleTest extends RuleTestCase
     public function testRule(): void
     {
         $this->analyse([__DIR__ . '/data/get-payload-in-controller.php'], [
-            ['Avoid inspecting request payload in controllers. Pass ApiRequest to a service instead.', 11],
-            ['Avoid inspecting request payload in controllers. Pass ApiRequest to a service instead.', 16],
+            ['Avoid inspecting request payload in controllers. Use the Form component to bind the request into a typed DTO instead.', 11],
+            ['Avoid inspecting request payload in controllers. Use the Form component to bind the request into a typed DTO instead.', 16],
         ]);
     }
 }

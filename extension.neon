@@ -22,6 +22,7 @@ parametersSchema:
         routePathCamelCase: schema(bool(), nullable())
         routeIdParamMustBeString: schema(bool(), nullable())
         noGetPayloadInController: schema(bool(), nullable())
+        noJsonDecodeInController: schema(bool(), nullable())
         noMultipleRequestParamsInController: schema(bool(), nullable())
         saveParameterDefault: schema(bool(), nullable())
         noEntityAsFormDataClass: schema(bool(), nullable())
@@ -61,6 +62,7 @@ parameters:
         routePathCamelCase: true
         routeIdParamMustBeString: true
         noGetPayloadInController: true
+        noJsonDecodeInController: true
         noMultipleRequestParamsInController: true
         saveParameterDefault: true
         noEntityAsFormDataClass: true

@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Identifier;
+use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
@@ -15,17 +14,17 @@ use PTGS\PHPStanRules\Rules\LevelAwareRule;
 use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
- * Controllers must not inspect request payload directly.
- * Use the Form component to bind the request into a typed DTO instead.
+ * Controllers must not hand-parse JSON. Use the Form component to bind the
+ * request into a typed DTO instead.
  *
- * Bad:  $data = $apiRequest->getJsonPayload();
+ * Bad:  $data = json_decode($request->getContent(), true);
  * Good: $form = $this->createForm(FooType::class);
  *       $form->handleRequest($request);
  *       if ($form->isValid()) { ... $form->getData() ... }
  *
- * @implements Rule<MethodCall>
+ * @implements Rule<FuncCall>
  */
-final class NoGetPayloadInControllerRule implements Rule
+final class NoJsonDecodeInControllerRule implements Rule
 {
     use LevelAwareRule;
 
@@ -36,11 +35,9 @@ final class NoGetPayloadInControllerRule implements Rule
         private readonly ?int $ruleLevel = null,
     ) {}
 
-    private const FLAGGED_METHODS = ['getJsonPayload', 'getPayload'];
-
     public function getNodeType(): string
     {
-        return MethodCall::class;
+        return FuncCall::class;
     }
 
     /** @return list<IdentifierRuleError> */
@@ -50,11 +47,11 @@ final class NoGetPayloadInControllerRule implements Rule
             return [];
         }
 
-        if (!$node->name instanceof Identifier) {
+        if (!$node->name instanceof Node\Name) {
             return [];
         }
 
-        if (!\in_array($node->name->name, self::FLAGGED_METHODS, true)) {
+        if ('json_decode' !== $node->name->toLowerString()) {
             return [];
         }
 
@@ -65,9 +62,9 @@ final class NoGetPayloadInControllerRule implements Rule
 
         return [
             RuleErrorBuilder::message(
-                'Avoid inspecting request payload in controllers. Use the Form component to bind the request into a typed DTO instead.',
+                'Avoid calling json_decode() in controllers. Use the Form component to bind the request into a typed DTO instead.',
             )
-                ->identifier('ptgs.noGetPayloadInController')
+                ->identifier('ptgs.noJsonDecodeInController')
                 ->build(),
         ];
     }

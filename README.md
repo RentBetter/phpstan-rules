@@ -39,9 +39,10 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `RouteIdParamMustBeStringRule` | `ptgs.routeIdParamMustBeString` | Route ID parameters not typed as `string` |
 | `RouteMethodSignatureRule` | `ptgs.routeMethodSignature` | Route methods missing `ApiRequest` first param or `ApiResponse` return type |
 | `RouteRequiresSpecApiRule` | `ptgs.routeRequiresSpecApi` | Route methods missing `#[Spec\Api]` attribute |
-| `NoGetPayloadInControllerRule` | `ptgs.noGetPayloadInController` | Controllers calling `getJsonPayload()`/`getPayload()` directly |
+| `NoGetPayloadInControllerRule` | `ptgs.noGetPayloadInController` | Controllers calling `getJsonPayload()`/`getPayload()` directly — use the Form component |
+| `NoJsonDecodeInControllerRule` | `ptgs.noJsonDecodeInController` | Controllers calling `json_decode()` — hand-parsing JSON; use the Form component |
 | `NoMultipleRequestParamsInControllerRule` | `ptgs.noMultipleRequestParamsInController` | Controllers accessing 2+ request parameters — use a form type |
-| `NoRequestGetContentInControllerRule` | `ptgs.noRequestGetContentInController` | Controllers calling `Request::getContent()` directly |
+| `NoRequestGetContentInControllerRule` | `ptgs.noRequestGetContentInController` | Controllers calling `Request::getContent()` directly — use the Form component |
 | `NoEntityAsFormDataClassRule` | `ptgs.noEntityAsFormDataClass` | Form types using an entity as `data_class` instead of a DTO |
 
 ### Architecture
@@ -94,7 +95,7 @@ Each rule has a minimum level threshold:
 
 | Level | Category | Rules |
 |-------|----------|-------|
-| **5** | Architecture | `forbiddenDependency`, `noDirectFlush`, `noRequestGetContentInController`, `noGetPayloadInController`, `noMultipleRequestParamsInController`, `noClassLevelRoute`, `noEntityAsFormDataClass` |
+| **5** | Architecture | `forbiddenDependency`, `noDirectFlush`, `noRequestGetContentInController`, `noGetPayloadInController`, `noJsonDecodeInController`, `noMultipleRequestParamsInController`, `noClassLevelRoute`, `noEntityAsFormDataClass` |
 | **6** | Correctness | `noPublicCollectionReturn`, `statusColumnMustBeEnum`, `noHardcodedValueInQuery`, `entityDeferredExplicit`, `entityTablePrefix`, `redundantColumnType`, `routeRequiresMethod`, `routeMethodSignature`, `routeIdParamMustBeString`, `routeRequiresUuidRequirement`, `moneyReturnType`, `saveParameterDefault`, `useDateFormatter` |
 | **8** | Convention | `noGenericId`, `actionMethodNaming`, `routeNameMatchesMethod`, `routePathCamelCase`, `routeRequiresSpecApi`, `readonlyService`, `namedArgumentForBoolean`, `noSnakeCaseJsonKey`, `noNullInJsonSerialize` |
 
