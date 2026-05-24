@@ -16,12 +16,11 @@ parametersSchema:
         namedArgumentOrder: schema(bool(), nullable())
         noSnakeCaseJsonKey: schema(bool(), nullable())
         noNullInJsonSerialize: schema(bool(), nullable())
-        noRequestGetContentInController: schema(bool(), nullable())
+        noRequestPayloadAccess: schema(bool(), nullable())
         statusColumnMustBeEnum: schema(bool(), nullable())
         noHardcodedValueInQuery: schema(bool(), nullable())
         routePathCamelCase: schema(bool(), nullable())
         routeIdParamMustBeString: schema(bool(), nullable())
-        noGetPayloadInController: schema(bool(), nullable())
         noJsonDecodeInController: schema(bool(), nullable())
         noMultipleRequestParamsInController: schema(bool(), nullable())
         saveParameterDefault: schema(bool(), nullable())
@@ -56,12 +55,11 @@ parameters:
         namedArgumentOrder: true
         noSnakeCaseJsonKey: true
         noNullInJsonSerialize: true
-        noRequestGetContentInController: true
+        noRequestPayloadAccess: true
         statusColumnMustBeEnum: true
         noHardcodedValueInQuery: true
         routePathCamelCase: true
         routeIdParamMustBeString: true
-        noGetPayloadInController: true
         noJsonDecodeInController: true
         noMultipleRequestParamsInController: true
         saveParameterDefault: true
