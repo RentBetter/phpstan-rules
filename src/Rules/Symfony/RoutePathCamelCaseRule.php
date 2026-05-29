@@ -13,10 +13,11 @@ use PHPStan\Rules\RuleErrorBuilder;
 use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
- * Route path segments must use camelCase, not snake_case.
+ * Route path segments must use camelCase — not snake_case or kebab-case.
  *
  * Good: /paymentAccounts/{accountId}/acceptRate
  * Bad:  /payment_accounts/{accountId}/accept_rate
+ * Bad:  /payment-accounts/{accountId}/accept-rate
  *
  * @implements Rule<ClassMethod>
  */
@@ -60,9 +61,15 @@ final class RoutePathCamelCaseRule implements Rule
                     continue;
                 }
 
-                if (str_contains($segment, '_')) {
+                $style = match (true) {
+                    str_contains($segment, '_') => 'snake_case',
+                    str_contains($segment, '-') => 'kebab-case',
+                    default => null,
+                };
+
+                if (null !== $style) {
                     $errors[] = RuleErrorBuilder::message(
-                        \sprintf('Route path segment "%s" uses snake_case. Use camelCase instead.', $segment),
+                        \sprintf('Route path segment "%s" uses %s. Use camelCase instead.', $segment, $style),
                     )
                         ->identifier('ptgs.routePathCamelCase')
                         ->build();

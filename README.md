@@ -35,7 +35,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `ActionMethodNamingRule` | `ptgs.actionMethodNaming` | Public route methods not ending in `Action` |
 | `RouteNameMatchesMethodRule` | `ptgs.routeNameMatchesMethod` | Route `name:` doesn't match method minus `Action` suffix |
 | `NoClassLevelRouteRule` | `ptgs.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path |
-| `RoutePathCamelCaseRule` | `ptgs.routePathCamelCase` | Route path segments using `snake_case` instead of `camelCase` |
+| `RoutePathCamelCaseRule` | `ptgs.routePathCamelCase` | Route path segments using `snake_case` or `kebab-case` instead of `camelCase` |
 | `RouteIdParamMustBeStringRule` | `ptgs.routeIdParamMustBeString` | Route ID parameters not typed as `string` |
 | `RouteMethodSignatureRule` | `ptgs.routeMethodSignature` | Route methods missing `ApiRequest` first param or `ApiResponse` return type |
 | `RouteRequiresSpecApiRule` | `ptgs.routeRequiresSpecApi` | Route methods missing `#[Spec\Api]` attribute |

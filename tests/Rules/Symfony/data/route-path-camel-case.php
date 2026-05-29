@@ -7,12 +7,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class PathController
 {
     #[Route(path: '/payment_accounts', name: 'bad', methods: 'GET')]
-    public function snakeCaseAction(): void // ERROR — payment_accounts
+    public function snakeCaseAction(): void // ERROR — payment_accounts (snake)
     {
     }
 
     #[Route(path: '/some_thing/{thingId}/sub_path', name: 'bad2', methods: 'GET')]
-    public function multipleSnakeCaseAction(): void // ERROR — some_thing
+    public function multipleSnakeCaseAction(): void // ERROR — some_thing (snake)
+    {
+    }
+
+    #[Route(path: '/payment-accounts', name: 'bad3', methods: 'GET')]
+    public function kebabCaseAction(): void // ERROR — payment-accounts (kebab)
+    {
+    }
+
+    #[Route(path: '/ad-spend/{accountId}/accept-rate', name: 'bad4', methods: 'GET')]
+    public function multipleKebabCaseAction(): void // ERROR — ad-spend (kebab)
     {
     }
 

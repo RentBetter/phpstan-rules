@@ -21,6 +21,8 @@ final class RoutePathCamelCaseRuleTest extends RuleTestCase
         $this->analyse([__DIR__ . '/data/route-path-camel-case.php'], [
             ['Route path segment "payment_accounts" uses snake_case. Use camelCase instead.', 9],
             ['Route path segment "some_thing" uses snake_case. Use camelCase instead.', 14],
+            ['Route path segment "payment-accounts" uses kebab-case. Use camelCase instead.', 19],
+            ['Route path segment "ad-spend" uses kebab-case. Use camelCase instead.', 24],
         ]);
     }
 }
