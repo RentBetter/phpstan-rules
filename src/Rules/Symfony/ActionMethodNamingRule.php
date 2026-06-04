@@ -45,6 +45,12 @@ final class ActionMethodNamingRule implements Rule
             return [];
         }
 
+        // Invokable controllers (#[AsController] with a single __invoke action) are exempt:
+        // they have no action name to suffix with "Action".
+        if ('__invoke' === $node->name->name) {
+            return [];
+        }
+
         $methodName = $node->name->name;
 
         if (!str_ends_with($methodName, 'Action')) {

@@ -16,3 +16,11 @@ class NamingController
     {
     }
 }
+
+class InvokableController
+{
+    #[Route('/invokable', name: 'invokable', methods: 'GET')]
+    public function __invoke(): void // OK - invokable controllers are exempt
+    {
+    }
+}

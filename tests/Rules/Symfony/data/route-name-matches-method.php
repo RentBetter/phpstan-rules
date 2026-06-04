@@ -31,3 +31,11 @@ class RouteNameController
     {
     }
 }
+
+class InvokableRouteController
+{
+    #[Route('/invokable', name: 'admin:doSomething', methods: 'POST')]
+    public function __invoke(): void // OK - invokable controllers are exempt from name-matches-method
+    {
+    }
+}

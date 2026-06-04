@@ -44,6 +44,12 @@ final class RouteNameMatchesMethodRule implements Rule
             return [];
         }
 
+        // Invokable controllers (single __invoke action) have no method-derived action name,
+        // so the route name cannot mirror it — the convention does not apply.
+        if ('__invoke' === $node->name->name) {
+            return [];
+        }
+
         $errors = [];
 
         foreach (RouteAttributeHelper::getRouteAttributes($node) as $attr) {
