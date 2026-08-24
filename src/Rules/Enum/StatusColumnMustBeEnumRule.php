@@ -68,7 +68,11 @@ final class StatusColumnMustBeEnumRule implements Rule
 
     private function isStatusProperty(string $name): bool
     {
-        return str_contains(strtolower($name), 'status');
+        // Ends with, not contains: $statusChangedAt / $statusUpdatedBy are metadata *about* a
+        // status column, not status columns themselves, and have no business being enum-backed.
+        // Every real one reads as a noun ending in the word — $status, $paymentStatus,
+        // $fulfilmentStatus.
+        return str_ends_with(strtolower($name), 'status');
     }
 
     private function getColumnAttribute(Property $property): ?Node\Attribute

@@ -14,6 +14,12 @@ class BadStatusEntity
 
     #[ORM\Column(type: 'string')] // OK - not a status field
     private string $name = '';
+
+    #[ORM\Column] // OK - a timestamp recording when $status moved, not a status column itself
+    private \DateTimeImmutable $statusChangedAt;
+
+    #[ORM\Column(type: 'string')] // OK - records who changed the status, not the status
+    private string $statusUpdatedBy = '';
 }
 
 class GoodStatusEntity
