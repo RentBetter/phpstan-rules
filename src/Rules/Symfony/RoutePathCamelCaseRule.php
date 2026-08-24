@@ -57,13 +57,22 @@ final class RoutePathCamelCaseRule implements Rule
             }
 
             foreach (explode('/', $path) as $segment) {
-                if ('' === $segment || str_starts_with($segment, '{')) {
+                if ('' === $segment) {
+                    continue;
+                }
+
+                // Judge only the literal text. Placeholders are Symfony's namespace, not ours:
+                // {_format} and {_locale} are reserved content-negotiation params whose leading
+                // underscore is mandatory, and a segment like "reports.{_format}" is not a
+                // snake_case word choice. Stripping them also covers a bare "{param}" segment.
+                $literal = preg_replace('/\{[^}]*\}/', '', $segment) ?? $segment;
+                if ('' === $literal) {
                     continue;
                 }
 
                 $style = match (true) {
-                    str_contains($segment, '_') => 'snake_case',
-                    str_contains($segment, '-') => 'kebab-case',
+                    str_contains($literal, '_') => 'snake_case',
+                    str_contains($literal, '-') => 'kebab-case',
                     default => null,
                 };
 

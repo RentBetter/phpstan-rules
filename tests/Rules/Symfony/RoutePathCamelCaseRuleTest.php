@@ -23,6 +23,7 @@ final class RoutePathCamelCaseRuleTest extends RuleTestCase
             ['Route path segment "some_thing" uses snake_case. Use camelCase instead.', 14],
             ['Route path segment "payment-accounts" uses kebab-case. Use camelCase instead.', 19],
             ['Route path segment "ad-spend" uses kebab-case. Use camelCase instead.', 24],
+            ['Route path segment "bad_thing.{_format}" uses snake_case. Use camelCase instead.', 64],
         ]);
     }
 }

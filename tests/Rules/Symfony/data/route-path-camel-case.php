@@ -45,4 +45,24 @@ class PathController
     public function prefixAction(): void // OK — api and admin are single words
     {
     }
+
+    #[Route(path: '/admin/reports.{_format}', name: 'format', methods: 'GET')]
+    public function reservedFormatParamAction(): void // OK — {_format} is Symfony's reserved param, not snake_case
+    {
+    }
+
+    #[Route(path: '/tenancies/{tenancyId}/notice.{_format}', name: 'format2', methods: 'GET')]
+    public function reservedFormatParamOnNestedPathAction(): void // OK
+    {
+    }
+
+    #[Route(path: '/{_locale}/things', name: 'locale', methods: 'GET')]
+    public function reservedLocaleParamAction(): void // OK — bare reserved placeholder segment
+    {
+    }
+
+    #[Route(path: '/bad_thing.{_format}', name: 'stillbad', methods: 'GET')]
+    public function snakeCaseLiteralBesideReservedParamAction(): void // ERROR — the literal part is still snake_case
+    {
+    }
 }
