@@ -32,6 +32,10 @@ parametersSchema:
         redundantJoinColumn: schema(bool(), nullable())
         forbiddenDependency: schema(bool(), nullable())
         ruleLevel: schema(int(), nullable())
+        reflectedConstants: listOf(structure([
+            name: string()
+            declaredBy: schema(string(), nullable())
+        ]))
         nullFilterFunction: schema(string(), nullable())
         groups: arrayOf(listOf(string()))
         forbiddenDependencies: arrayOf(listOf(structure([
@@ -42,6 +46,8 @@ parametersSchema:
 
 parameters:
     ptgs:
+        # Constants read by reflection, so nothing references them. Opt-in per project.
+        reflectedConstants: []
         noPublicCollectionReturn: true
         noDirectFlush: true
         noGenericId: true

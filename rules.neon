@@ -146,6 +146,13 @@ services:
         arguments:
             ruleLevel: %ptgs.ruleLevel%
 
+    -
+        class: PTGS\PHPStanRules\Extension\ReflectedClassConstantsExtension
+        arguments:
+            reflectedConstants: %ptgs.reflectedConstants%
+        tags:
+            - phpstan.constants.alwaysUsedClassConstantsExtension
+
 conditionalTags:
     PTGS\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule:
         phpstan.rules.rule: %ptgs.forbiddenDependency%
