@@ -60,7 +60,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
 | `NoSnakeCaseJsonKeyRule` | `ptgs.noSnakeCaseJsonKey` | `jsonSerialize()` returning arrays with `snake_case` keys |
-| `NoNullInJsonSerializeRule` | `ptgs.noNullInJsonSerialize` | `jsonSerialize()` returning raw arrays without null filtering |
+| `NoNullInJsonSerializeRule` | `ptgs.noNullInJsonSerialize` | `jsonSerialize()` returning a raw array in which a top-level value may be null, without `array_filter_nulls()` (`mixed` and a literal `null` do not count) |
 
 ### Enum
 

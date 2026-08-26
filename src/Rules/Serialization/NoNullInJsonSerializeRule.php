@@ -5,19 +5,32 @@ declare(strict_types=1);
 namespace PTGS\PHPStanRules\Rules\Serialization;
 
 use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\ArrayItem;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
- * jsonSerialize() methods should not return raw arrays.
- * Wrap the return array in array_filter_nulls() (or configured filter function)
- * to strip null values.
+ * jsonSerialize() must not return a raw array in which a top-level value may be null.
+ * Wrap the return array in array_filter_nulls() (or the configured filter function)
+ * so the key is dropped rather than serialised as null.
  *
- * @implements Rule<ClassMethod>
+ * Only values PHPStan can prove *may* be null count: a `?string` property, a call
+ * returning `?T`, a spread array whose values include null. A value that can never be
+ * null needs no filter, and one that is always null (a literal) is a deliberate choice.
+ * `mixed` is not treated as nullable — being strict about mixed is PHPStan's own level 9
+ * stance, and this rule fires from level 8.
+ *
+ * Judged at the return statement, so local variables and null-narrowing earlier in the
+ * method are respected.
+ *
+ * @implements Rule<Return_>
  */
 final class NoNullInJsonSerializeRule implements Rule
 {
@@ -32,7 +45,7 @@ final class NoNullInJsonSerializeRule implements Rule
 
     public function getNodeType(): string
     {
-        return ClassMethod::class;
+        return Return_::class;
     }
 
     public function processNode(Node $node, Scope $scope): array
@@ -41,63 +54,78 @@ final class NoNullInJsonSerializeRule implements Rule
             return [];
         }
 
-        if ('jsonSerialize' !== $node->name->name) {
+        if (!$node->expr instanceof Array_ || $scope->isInAnonymousFunction()) {
             return [];
         }
 
-        $errors = [];
-
-        $returnStatements = $this->findReturnStatements($node);
-        foreach ($returnStatements as $return) {
-            if (null === $return->expr) {
-                continue;
-            }
-
-            // Check if the return is a raw array literal
-            if ($return->expr instanceof Node\Expr\Array_) {
-                $errors[] = RuleErrorBuilder::message(\sprintf(
-                    'jsonSerialize() returns a raw array. Wrap it in %s() to strip null values.',
-                    $this->filterFunction,
-                ))
-                    ->identifier('ptgs.noNullInJsonSerialize')
-                    ->line($return->getStartLine())
-                    ->build();
-            }
+        $function = $scope->getFunction();
+        if (!$function instanceof MethodReflection || 'jsonSerialize' !== $function->getName()) {
+            return [];
         }
 
-        return $errors;
+        $nullable = $this->nullableItems($node->expr, $scope);
+        if ([] === $nullable) {
+            return [];
+        }
+
+        return [
+            RuleErrorBuilder::message(\sprintf(
+                'jsonSerialize() returns a raw array where %s may be null. Wrap it in %s() to strip null values.',
+                implode(', ', $nullable),
+                $this->filterFunction,
+            ))
+                ->identifier('ptgs.noNullInJsonSerialize')
+                ->line($node->getStartLine())
+                ->build(),
+        ];
     }
 
     /**
-     * @return list<Return_>
+     * Describes each top-level item whose value may be null.
+     *
+     * @return list<string>
      */
-    private function findReturnStatements(Node $node): array
+    private function nullableItems(Array_ $array, Scope $scope): array
     {
-        $returns = [];
-        foreach ($node->getSubNodeNames() as $subNodeName) {
-            $subNode = $node->$subNodeName;
-            if ($subNode instanceof Return_) {
-                $returns[] = $subNode;
-            } elseif ($subNode instanceof Node) {
-                // Don't descend into closures/anonymous classes
-                if ($subNode instanceof Node\Expr\Closure || $subNode instanceof Node\Expr\ArrowFunction || $subNode instanceof Node\Stmt\Class_) {
-                    continue;
-                }
-                $returns = [...$returns, ...$this->findReturnStatements($subNode)];
-            } elseif (\is_array($subNode)) {
-                foreach ($subNode as $child) {
-                    if ($child instanceof Return_) {
-                        $returns[] = $child;
-                    } elseif ($child instanceof Node) {
-                        if ($child instanceof Node\Expr\Closure || $child instanceof Node\Expr\ArrowFunction || $child instanceof Node\Stmt\Class_) {
-                            continue;
-                        }
-                        $returns = [...$returns, ...$this->findReturnStatements($child)];
-                    }
-                }
+        $nullable = [];
+        foreach ($array->items as $index => $item) {
+            $type = $scope->getType($item->value);
+            if ($item->unpack) {
+                $type = $type->getIterableValueType();
+            }
+
+            if ($this->mayBeNull($type)) {
+                $nullable[] = $this->describe($item, $index);
             }
         }
 
-        return $returns;
+        return $nullable;
+    }
+
+    private function mayBeNull(Type $type): bool
+    {
+        // MixedType also covers ErrorType (unresolvable) and template mixed
+        if ($type instanceof MixedType) {
+            return false;
+        }
+
+        return $type->isNull()->maybe();
+    }
+
+    private function describe(ArrayItem $item, int $index): string
+    {
+        if ($item->unpack) {
+            return 'a spread value';
+        }
+
+        if ($item->key instanceof Node\Scalar\String_) {
+            return \sprintf("'%s'", $item->key->value);
+        }
+
+        if ($item->key instanceof Node\Scalar\Int_) {
+            return \sprintf('[%d]', $item->key->value);
+        }
+
+        return null === $item->key ? \sprintf('[%d]', $index) : 'a computed key';
     }
 }
