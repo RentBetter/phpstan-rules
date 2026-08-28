@@ -56,6 +56,11 @@ services:
             ruleLevel: %ptgs.ruleLevel%
 
     -
+        class: PTGS\PHPStanRules\Rules\Architecture\NoServiceParameterInStaticMethodRule
+        arguments:
+            ruleLevel: %ptgs.ruleLevel%
+
+    -
         class: PTGS\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule
         arguments:
             ruleLevel: %ptgs.ruleLevel%
@@ -174,6 +179,8 @@ conditionalTags:
         phpstan.rules.rule: %ptgs.readonlyService%
     PTGS\PHPStanRules\Rules\Architecture\RedundantReadonlyInReadonlyClassRule:
         phpstan.rules.rule: %ptgs.redundantReadonlyInReadonlyClass%
+    PTGS\PHPStanRules\Rules\Architecture\NoServiceParameterInStaticMethodRule:
+        phpstan.rules.rule: %ptgs.noServiceParameterInStaticMethod%
     PTGS\PHPStanRules\Rules\Architecture\NamedArgumentForBooleanRule:
         phpstan.rules.rule: %ptgs.namedArgumentForBoolean%
     PTGS\PHPStanRules\Rules\Architecture\NamedArgumentOrderRule:

@@ -12,6 +12,7 @@ parametersSchema:
         routeNameMatchesMethod: schema(bool(), nullable())
         readonlyService: schema(bool(), nullable())
         redundantReadonlyInReadonlyClass: schema(bool(), nullable())
+        noServiceParameterInStaticMethod: schema(bool(), nullable())
         namedArgumentForBoolean: schema(bool(), nullable())
         namedArgumentOrder: schema(bool(), nullable())
         noSnakeCaseJsonKey: schema(bool(), nullable())
@@ -57,6 +58,7 @@ parameters:
         routeNameMatchesMethod: true
         readonlyService: true
         redundantReadonlyInReadonlyClass: true
+        noServiceParameterInStaticMethod: true
         namedArgumentForBoolean: true
         namedArgumentOrder: true
         noSnakeCaseJsonKey: true
