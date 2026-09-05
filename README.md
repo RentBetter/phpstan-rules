@@ -29,7 +29,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `NoGenericIdParameterRule` | `ptgs.noGenericId` | Route methods with param named `$id` (use `$tenancyId` etc.) |
+| `NoGenericIdParameterRule` | `ptgs.noGenericId` | Route paths containing `{id}`, or route methods with a param named `$id` (use `{tenancyId}` / `$tenancyId` etc.) |
 | `RouteRequiresMethodRule` | `ptgs.routeRequiresMethod` | `#[Route]` missing `methods:` parameter |
 | `RouteRequiresUuidRequirementRule` | `ptgs.routeRequiresUuidRequirement` | Route `{fooId}` params without `requirements:` constraint |
 | `ActionMethodNamingRule` | `ptgs.actionMethodNaming` | Public route methods not ending in `Action` |

@@ -12,8 +12,12 @@ use PHPStan\Rules\RuleErrorBuilder;
 use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
- * Route methods should use descriptive ID parameter names like $tenancyId,
- * not generic $id.
+ * Route methods should use descriptive ID names like $tenancyId / {tenancyId},
+ * not a generic $id / {id}.
+ *
+ * The path is checked as well as the signature because a route can carry {id}
+ * while the method binds it under another name — through #[MapEntity], a value
+ * resolver, or simply by never taking the parameter at all.
  *
  * @implements Rule<ClassMethod>
  */
@@ -38,8 +42,23 @@ final class NoGenericIdParameterRule implements Rule
             return [];
         }
 
-        if ([] === RouteAttributeHelper::getRouteAttributes($node)) {
+        $routeAttributes = RouteAttributeHelper::getRouteAttributes($node);
+        if ([] === $routeAttributes) {
             return [];
+        }
+
+        foreach ($routeAttributes as $attribute) {
+            $path = RouteAttributeHelper::getRoutePath($attribute);
+            if (null !== $path && str_contains($path, '{id}')) {
+                return [
+                    RuleErrorBuilder::message(
+                        'Route path parameter should use a descriptive name like {tenancyId} instead of {id}.',
+                    )
+                        ->identifier('ptgs.noGenericId')
+                        ->line($attribute->getStartLine())
+                        ->build(),
+                ];
+            }
         }
 
         foreach ($node->params as $param) {
