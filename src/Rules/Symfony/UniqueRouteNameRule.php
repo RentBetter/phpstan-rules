@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Node\CollectedDataNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
+use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
 /**
  * Errors when two routes declare the same explicit name. Only authoritative on a
@@ -17,13 +19,25 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class UniqueRouteNameRule implements Rule
 {
+    use LevelAwareRule;
+
+    private const int MIN_LEVEL = 6;
+
+    public function __construct(
+        private readonly ?int $ruleLevel = null,
+    ) {}
+
     public function getNodeType(): string
     {
         return CollectedDataNode::class;
     }
 
-    public function processNode(Node $node, $scope): array
+    public function processNode(Node $node, Scope $scope): array
     {
+        if ($this->belowMinLevel()) {
+            return [];
+        }
+
         $declarations = [];
         foreach ($node->get(RouteNameCollector::class) as $file => $collected) {
             foreach ($collected as $names) {

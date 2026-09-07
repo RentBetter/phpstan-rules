@@ -50,6 +50,8 @@ services:
 
     -
         class: PTGS\PHPStanRules\Rules\Symfony\UniqueRouteNameRule
+        arguments:
+            ruleLevel: %ptgs.ruleLevel%
 
     -
         class: PTGS\PHPStanRules\Rules\Architecture\ReadonlyServiceRule

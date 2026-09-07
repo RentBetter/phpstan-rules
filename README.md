@@ -34,6 +34,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `RouteRequiresUuidRequirementRule` | `ptgs.routeRequiresUuidRequirement` | Route `{fooId}` params without `requirements:` constraint |
 | `ActionMethodNamingRule` | `ptgs.actionMethodNaming` | Public route methods not ending in `Action` |
 | `RouteNameMatchesMethodRule` | `ptgs.routeNameMatchesMethod` | Route `name:` doesn't match method minus `Action` suffix |
+| `UniqueRouteNameRule` | `ptgs.uniqueRouteName` | Two routes registering the same name once class-level `name:` prefixes are applied — Symfony keeps only the last-registered route and silently 404s the rest. Needs the whole codebase in one run to be authoritative |
 | `NoClassLevelRouteRule` | `ptgs.noClassLevelRoute` | `#[Route]` on controller classes — class-level prefixes hide the real path |
 | `RoutePathCamelCaseRule` | `ptgs.routePathCamelCase` | Route path segments using `snake_case` or `kebab-case` instead of `camelCase` |
 | `RouteIdParamMustBeStringRule` | `ptgs.routeIdParamMustBeString` | Route ID parameters not typed as `string` |
@@ -95,7 +96,7 @@ Each rule has a minimum level threshold:
 | Level | Category | Rules |
 |-------|----------|-------|
 | **5** | Architecture | `forbiddenDependency`, `noDirectFlush`, `noRequestPayloadAccess`, `noJsonDecodeInController`, `noMultipleRequestParamsInController`, `noClassLevelRoute`, `noEntityAsFormDataClass` |
-| **6** | Correctness | `noPublicCollectionReturn`, `statusColumnMustBeEnum`, `noHardcodedValueInQuery`, `entityDeferredExplicit`, `entityTablePrefix`, `redundantColumnType`, `routeRequiresMethod`, `routeMethodSignature`, `routeIdParamMustBeString`, `routeRequiresUuidRequirement`, `moneyReturnType`, `saveParameterDefault`, `useDateFormatter` |
+| **6** | Correctness | `noPublicCollectionReturn`, `statusColumnMustBeEnum`, `noHardcodedValueInQuery`, `entityDeferredExplicit`, `entityTablePrefix`, `redundantColumnType`, `routeRequiresMethod`, `routeMethodSignature`, `routeIdParamMustBeString`, `routeRequiresUuidRequirement`, `moneyReturnType`, `saveParameterDefault`, `useDateFormatter`, `uniqueRouteName` |
 | **8** | Convention | `noGenericId`, `actionMethodNaming`, `routeNameMatchesMethod`, `routePathCamelCase`, `routeRequiresSpecApi`, `readonlyService`, `namedArgumentForBoolean`, `noSnakeCaseJsonKey`, `noNullInJsonSerialize` |
 
 When `ruleLevel` is `null` (the default), all rules fire — backward compatible.

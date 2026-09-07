@@ -6,20 +6,21 @@ namespace PTGS\PHPStanRules\Rules\Symfony;
 
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 
 /**
- * Shared helper for extracting Symfony #[Route] attributes from class methods.
+ * Shared helper for extracting Symfony #[Route] attributes from classes and class methods.
  */
 final class RouteAttributeHelper
 {
     /**
      * @return list<Attribute>
      */
-    public static function getRouteAttributes(ClassMethod $method): array
+    public static function getRouteAttributes(ClassMethod|Class_ $node): array
     {
         $attributes = [];
-        foreach ($method->attrGroups as $attrGroup) {
+        foreach ($node->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
                 $name = $attr->name->toString();
                 if ('Route' === $name
