@@ -10,6 +10,7 @@ parametersSchema:
         routeRequiresUuidRequirement: schema(bool(), nullable())
         actionMethodNaming: schema(bool(), nullable())
         routeNameMatchesMethod: schema(bool(), nullable())
+        uniqueRouteName: schema(bool(), nullable())
         readonlyService: schema(bool(), nullable())
         redundantReadonlyInReadonlyClass: schema(bool(), nullable())
         noServiceParameterInStaticMethod: schema(bool(), nullable())
@@ -56,6 +57,7 @@ parameters:
         routeRequiresUuidRequirement: true
         actionMethodNaming: true
         routeNameMatchesMethod: true
+        uniqueRouteName: true
         readonlyService: true
         redundantReadonlyInReadonlyClass: true
         noServiceParameterInStaticMethod: true

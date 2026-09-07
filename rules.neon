@@ -46,6 +46,12 @@ services:
             ruleLevel: %ptgs.ruleLevel%
 
     -
+        class: PTGS\PHPStanRules\Rules\Symfony\RouteNameCollector
+
+    -
+        class: PTGS\PHPStanRules\Rules\Symfony\UniqueRouteNameRule
+
+    -
         class: PTGS\PHPStanRules\Rules\Architecture\ReadonlyServiceRule
         arguments:
             ruleLevel: %ptgs.ruleLevel%
@@ -175,6 +181,10 @@ conditionalTags:
         phpstan.rules.rule: %ptgs.actionMethodNaming%
     PTGS\PHPStanRules\Rules\Symfony\RouteNameMatchesMethodRule:
         phpstan.rules.rule: %ptgs.routeNameMatchesMethod%
+    PTGS\PHPStanRules\Rules\Symfony\RouteNameCollector:
+        phpstan.collector: %ptgs.uniqueRouteName%
+    PTGS\PHPStanRules\Rules\Symfony\UniqueRouteNameRule:
+        phpstan.rules.rule: %ptgs.uniqueRouteName%
     PTGS\PHPStanRules\Rules\Architecture\ReadonlyServiceRule:
         phpstan.rules.rule: %ptgs.readonlyService%
     PTGS\PHPStanRules\Rules\Architecture\RedundantReadonlyInReadonlyClassRule:
