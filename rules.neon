@@ -59,6 +59,11 @@ services:
             ruleLevel: %ptgs.ruleLevel%
 
     -
+        class: PTGS\PHPStanRules\Rules\Architecture\NoWallClockRule
+        arguments:
+            ruleLevel: %ptgs.ruleLevel%
+
+    -
         class: PTGS\PHPStanRules\Rules\Architecture\RedundantReadonlyInReadonlyClassRule
         arguments:
             ruleLevel: %ptgs.ruleLevel%
@@ -189,6 +194,8 @@ conditionalTags:
         phpstan.rules.rule: %ptgs.uniqueRouteName%
     PTGS\PHPStanRules\Rules\Architecture\ReadonlyServiceRule:
         phpstan.rules.rule: %ptgs.readonlyService%
+    PTGS\PHPStanRules\Rules\Architecture\NoWallClockRule:
+        phpstan.rules.rule: %ptgs.noWallClock%
     PTGS\PHPStanRules\Rules\Architecture\RedundantReadonlyInReadonlyClassRule:
         phpstan.rules.rule: %ptgs.redundantReadonlyInReadonlyClass%
     PTGS\PHPStanRules\Rules\Architecture\NoServiceParameterInStaticMethodRule:

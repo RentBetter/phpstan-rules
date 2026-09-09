@@ -51,6 +51,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 |------|----------|----------------|
 | `ForbiddenDependencyRule` | `ptgs.forbiddenDependency` | Constructor params that violate a configured group→group dependency boundary (see [Dependency Boundaries](#dependency-boundaries)) |
 | `ReadonlyServiceRule` | `ptgs.readonlyService` | Non-readonly service classes |
+| `NoWallClockRule` | `ptgs.noWallClock` | The current time read off the wall — `new DateTimeImmutable()` / `new DateTime()` / `new DatePoint()` with no or a relative argument, `time()`, `microtime()`, `date()`, `gmdate()`, `idate()`, `localtime()`, `getdate()` — instead of an injected `Symfony\Component\Clock\ClockInterface` or the `Symfony\Component\Clock\now()` function. Explicit values (`new DateTimeImmutable('2025-01-15')`) are fine |
 | `NamedArgumentForBooleanRule` | `ptgs.namedArgumentForBoolean` | Boolean literals passed positionally to project methods |
 | `SaveParameterDefaultRule` | `ptgs.saveParameterDefault` | `$save`/`$flush` bool params defaulting to `false` instead of `true` |
 | `MoneyReturnTypeRule` | `ptgs.moneyReturnType` | Public methods returning `MoneyModelV2` instead of `MoneyInterface` |

@@ -12,6 +12,7 @@ parametersSchema:
         routeNameMatchesMethod: schema(bool(), nullable())
         uniqueRouteName: schema(bool(), nullable())
         readonlyService: schema(bool(), nullable())
+        noWallClock: schema(bool(), nullable())
         redundantReadonlyInReadonlyClass: schema(bool(), nullable())
         noServiceParameterInStaticMethod: schema(bool(), nullable())
         namedArgumentForBoolean: schema(bool(), nullable())
@@ -59,6 +60,7 @@ parameters:
         routeNameMatchesMethod: true
         uniqueRouteName: true
         readonlyService: true
+        noWallClock: true
         redundantReadonlyInReadonlyClass: true
         noServiceParameterInStaticMethod: true
         namedArgumentForBoolean: true
