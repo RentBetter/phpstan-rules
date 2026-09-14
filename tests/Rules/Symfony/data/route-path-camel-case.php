@@ -61,6 +61,11 @@ class PathController
     {
     }
 
+    #[Route(path: '/.well-known/oauth-authorization-server', name: 'wellKnown', methods: 'GET')]
+    public function wellKnownUriAction(): void // OK — RFC 8615 well-known URI, spelled by the IANA registry
+    {
+    }
+
     #[Route(path: '/bad_thing.{_format}', name: 'stillbad', methods: 'GET')]
     public function snakeCaseLiteralBesideReservedParamAction(): void // ERROR — the literal part is still snake_case
     {

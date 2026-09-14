@@ -61,6 +61,14 @@ final class RoutePathCamelCaseRule implements Rule
                     continue;
                 }
 
+                // A segment beginning with a dot opens an RFC 8615 well-known URI, e.g.
+                // /.well-known/oauth-authorization-server. The prefix and the registered suffix
+                // after it are both spelled by the IANA registry that defines them — hyphens
+                // included — so the rest of the path is not ours to name.
+                if (str_starts_with($segment, '.')) {
+                    continue 2;
+                }
+
                 // Judge only the literal text. Placeholders are Symfony's namespace, not ours:
                 // {_format} and {_locale} are reserved content-negotiation params whose leading
                 // underscore is mandatory, and a segment like "reports.{_format}" is not a
