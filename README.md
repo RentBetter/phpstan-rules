@@ -25,6 +25,13 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | `RedundantColumnTypeRule` | `ptgs.redundantColumnType` | `type: Types::STRING` on `string` properties etc. — Doctrine infers these from the PHP type, so specifying them is noise |
 | `NoHardcodedValueInQueryRule` | `ptgs.noHardcodedValueInQuery` | Hardcoded numeric/string values in DQL queries — use bound parameters or `$enum->value` |
 
+The package also ships `ReadOnlyEntityPropertiesExtension`, which tells PHPStan that the
+mapped properties of a `#[ORM\Entity(readOnly: true)]` are written by hydration, so they are
+not reported as "never written, only read" when the rows only ever arrive by SQL. It reads the
+attributes directly — no `phpstan-doctrine` or object-manager bootstrap required — and unlike
+phpstan-doctrine's own check it applies whether or not the entity declares a constructor.
+Disable it with `ptgs.readOnlyEntityHydration: false`.
+
 ### Symfony Routes
 
 | Rule | Error ID | What it detects |

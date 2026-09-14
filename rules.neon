@@ -171,7 +171,12 @@ services:
         tags:
             - phpstan.constants.alwaysUsedClassConstantsExtension
 
+    -
+        class: PTGS\PHPStanRules\Extension\ReadOnlyEntityPropertiesExtension
+
 conditionalTags:
+    PTGS\PHPStanRules\Extension\ReadOnlyEntityPropertiesExtension:
+        phpstan.properties.readWriteExtension: %ptgs.readOnlyEntityHydration%
     PTGS\PHPStanRules\Rules\Architecture\ForbiddenDependencyRule:
         phpstan.rules.rule: %ptgs.forbiddenDependency%
     PTGS\PHPStanRules\Rules\Doctrine\NoPublicCollectionReturnRule:

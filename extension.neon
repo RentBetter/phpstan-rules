@@ -34,6 +34,7 @@ parametersSchema:
         redundantColumnType: schema(bool(), nullable())
         redundantJoinColumn: schema(bool(), nullable())
         forbiddenDependency: schema(bool(), nullable())
+        readOnlyEntityHydration: schema(bool(), nullable())
         ruleLevel: schema(int(), nullable())
         reflectedConstants: listOf(structure([
             name: string()
@@ -82,6 +83,8 @@ parameters:
         redundantColumnType: true
         redundantJoinColumn: true
         forbiddenDependency: true
+        # Mapped properties of a `#[ORM\Entity(readOnly: true)]` count as written by hydration.
+        readOnlyEntityHydration: true
         ruleLevel: null
         nullFilterFunction: array_filter_nulls
         groups:
