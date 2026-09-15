@@ -22,6 +22,15 @@ class BadStatusEntity
     private string $statusUpdatedBy = '';
 }
 
+class RequestLogItem
+{
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)] // OK - an HTTP status code, not one of our states
+    private ?int $status = null;
+
+    #[ORM\Column(type: 'integer')] // OK - integer column type, whatever the property says
+    private mixed $upstreamStatus = 0;
+}
+
 class GoodStatusEntity
 {
     #[ORM\Column(enumType: SomeStatus::class)] // OK - has enumType

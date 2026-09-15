@@ -23,6 +23,8 @@ final class StatusColumnMustBeEnumRule implements Rule
 
     private const int MIN_LEVEL = 6;
 
+    private const array INTEGER_COLUMN_TYPES = ['smallint', 'integer', 'bigint'];
+
     public function __construct(
         private readonly ?int $ruleLevel = null,
     ) {}
@@ -49,6 +51,12 @@ final class StatusColumnMustBeEnumRule implements Rule
 
             $columnAttr = $this->getColumnAttribute($node);
             if (null === $columnAttr) {
+                continue;
+            }
+
+            // An integer status is a protocol code — the HTTP status on a request log, say —
+            // not a state machine of our own, and no enum stands behind it.
+            if ($this->isIntegerColumn($node, $columnAttr)) {
                 continue;
             }
 
@@ -90,6 +98,29 @@ final class StatusColumnMustBeEnumRule implements Rule
         }
 
         return null;
+    }
+
+    private function isIntegerColumn(Property $property, Node\Attribute $attr): bool
+    {
+        $type = $property->type instanceof Node\NullableType ? $property->type->type : $property->type;
+        if ($type instanceof Node\Identifier && 'int' === $type->toLowerString()) {
+            return true;
+        }
+
+        foreach ($attr->args as $arg) {
+            if ('type' !== $arg->name?->name) {
+                continue;
+            }
+            // type: 'integer' or type: Types::INTEGER — the constant's name is its value upcased.
+            if ($arg->value instanceof Node\Scalar\String_) {
+                return \in_array(strtolower($arg->value->value), self::INTEGER_COLUMN_TYPES, true);
+            }
+            if ($arg->value instanceof Node\Expr\ClassConstFetch && $arg->value->name instanceof Node\Identifier) {
+                return \in_array(strtolower($arg->value->name->name), self::INTEGER_COLUMN_TYPES, true);
+            }
+        }
+
+        return false;
     }
 
     private function hasEnumType(Node\Attribute $attr): bool

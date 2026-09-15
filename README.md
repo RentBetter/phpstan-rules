@@ -19,7 +19,7 @@ The rules are auto-discovered via PHPStan's extension mechanism — no manual `i
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
 | `NoPublicCollectionReturnRule` | `ptgs.noCollectionReturn` | Entity public methods returning `Collection` instead of `array` |
-| `NoDirectFlushRule` | `ptgs.noDirectFlush` | Calling `->flush()` on `EntityManagerInterface` |
+| `NoDirectFlushRule` | `ptgs.noDirectFlush` | Calling `->flush()` on `EntityManagerInterface` outside a repository — repositories own persistence, everything else passes `$save` |
 | `EntityTablePrefixRule` | `ptgs.entityTablePrefix` | Entities missing `#[ORM\Table(name: 'tbl_...')]` — prefix makes direct table usage searchable |
 | `EntityDeferredExplicitRule` | `ptgs.entityDeferredExplicit` | Entities missing `#[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]` — prevents accidental flushes, improves performance, and gives control over batch saving and flush timing |
 | `RedundantColumnTypeRule` | `ptgs.redundantColumnType` | `type: Types::STRING` on `string` properties etc. — Doctrine infers these from the PHP type, so specifying them is noise |
@@ -50,7 +50,7 @@ Disable it with `ptgs.readOnlyEntityHydration: false`.
 | `NoJsonDecodeInControllerRule` | `ptgs.noJsonDecodeInController` | Controllers calling `json_decode()` — hand-parsing JSON; use the Form component |
 | `NoMultipleRequestParamsInControllerRule` | `ptgs.noMultipleRequestParamsInController` | Controllers accessing 2+ request parameters — use a form type |
 | `NoRequestPayloadAccessRule` | `ptgs.noRequestPayloadAccess` | Any call to `Request::toArray()`, `Request::getPayload()`, or `Request::getContent()` — use the Form component to bind a typed DTO |
-| `NoEntityAsFormDataClassRule` | `ptgs.noEntityAsFormDataClass` | Form types using an entity as `data_class` instead of a DTO |
+| `NoEntityAsFormDataClassRule` | `ptgs.noEntityAsFormDataClass` | Form types using a `#[ORM\Entity]` class as `data_class` instead of a DTO (embeddables and plain models in an `Entity` namespace are fine) |
 
 ### Architecture
 
@@ -75,7 +75,7 @@ Disable it with `ptgs.readOnlyEntityHydration: false`.
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `StatusColumnMustBeEnumRule` | `ptgs.statusColumnMustBeEnum` | Doctrine `#[Column]` on `*status*` properties without `enumType:` |
+| `StatusColumnMustBeEnumRule` | `ptgs.statusColumnMustBeEnum` | Doctrine `#[Column]` on `*status` properties without `enumType:` — integer columns (an HTTP status code) are exempt |
 
 ## Configuration
 
