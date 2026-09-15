@@ -10,6 +10,7 @@ class SnakeEntity implements \JsonSerializable
             'first_name' => 'John', // ERROR
             'lastName' => 'Doe', // OK
             'email_address' => 'j@d.com', // ERROR
+            '_debug' => ['trend' => 'up'], // OK - leading underscore marks an envelope key, not a word boundary
         ];
     }
 }

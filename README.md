@@ -68,7 +68,7 @@ Disable it with `ptgs.readOnlyEntityHydration: false`.
 
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
-| `NoSnakeCaseJsonKeyRule` | `ptgs.noSnakeCaseJsonKey` | `jsonSerialize()` returning arrays with `snake_case` keys |
+| `NoSnakeCaseJsonKeyRule` | `ptgs.noSnakeCaseJsonKey` | `jsonSerialize()` returning arrays with `snake_case` keys — a leading underscore (`_debug`) is an envelope marker and passes |
 | `NoNullInJsonSerializeRule` | `ptgs.noNullInJsonSerialize` | `jsonSerialize()` returning a raw array in which a top-level value may be null, without `array_filter_nulls()` (`mixed` and a literal `null` do not count) |
 
 ### Enum

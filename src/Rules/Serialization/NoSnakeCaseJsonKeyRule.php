@@ -82,6 +82,8 @@ final class NoSnakeCaseJsonKeyRule implements Rule
 
     private function isSnakeCase(string $key): bool
     {
-        return str_contains($key, '_') && strtolower($key) === $key;
+        // A leading underscore is an envelope marker (`_debug` beside `$pagination`), not a word
+        // boundary — only underscores between words make a key snake_case.
+        return str_contains(ltrim($key, '_'), '_') && strtolower($key) === $key;
     }
 }
