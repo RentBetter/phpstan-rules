@@ -7,6 +7,7 @@ namespace PTGS\PHPStanRules\Tests\Rules\Doctrine;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PTGS\PHPStanRules\Rules\Doctrine\NoDirectFlushRule;
+use PTGS\PHPStanRules\Tests\Rules\TestGroups;
 
 /**
  * @extends RuleTestCase<NoDirectFlushRule>
@@ -15,7 +16,7 @@ final class NoDirectFlushRuleTest extends RuleTestCase
 {
     protected function getRule(): Rule
     {
-        return new NoDirectFlushRule();
+        return new NoDirectFlushRule(TestGroups::defaultResolver());
     }
 
     public function testRule(): void
