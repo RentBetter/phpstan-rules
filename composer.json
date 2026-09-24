@@ -23,7 +23,8 @@
         },
         "classmap": [
             "tests/Rules/Architecture/data/named-argument-order.php",
-            "tests/Rules/Symfony/data/entity-as-form-data-class.php"
+            "tests/Rules/Symfony/data/entity-as-form-data-class.php",
+            "tests/Rules/Architecture/data/no-wall-clock.php"
         ]
     },
     "extra": {
