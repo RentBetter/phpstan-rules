@@ -18,7 +18,6 @@ parametersSchema:
         namedArgumentForBoolean: schema(bool(), nullable())
         namedArgumentOrder: schema(bool(), nullable())
         noSnakeCaseJsonKey: schema(bool(), nullable())
-        noNullInJsonSerialize: schema(bool(), nullable())
         noRequestPayloadAccess: schema(bool(), nullable())
         statusColumnMustBeEnum: schema(bool(), nullable())
         noHardcodedValueInQuery: schema(bool(), nullable())
@@ -40,7 +39,6 @@ parametersSchema:
             name: string()
             declaredBy: schema(string(), nullable())
         ]))
-        nullFilterFunction: schema(string(), nullable())
         groups: arrayOf(listOf(string()))
         forbiddenDependencies: arrayOf(listOf(structure([
             group: string()
@@ -67,7 +65,6 @@ parameters:
         namedArgumentForBoolean: true
         namedArgumentOrder: true
         noSnakeCaseJsonKey: true
-        noNullInJsonSerialize: true
         noRequestPayloadAccess: true
         statusColumnMustBeEnum: true
         noHardcodedValueInQuery: true
@@ -86,7 +83,6 @@ parameters:
         # Mapped properties of a `#[ORM\Entity(readOnly: true)]` count as written by hydration.
         readOnlyEntityHydration: true
         ruleLevel: null
-        nullFilterFunction: array_filter_nulls
         groups:
             controller: ['~\\Controller\\~']
             service:    ['~\\Services?\\~', '~\\Helpers?\\~']

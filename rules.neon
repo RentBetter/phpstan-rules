@@ -89,12 +89,6 @@ services:
             ruleLevel: %ptgs.ruleLevel%
 
     -
-        class: PTGS\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule
-        arguments:
-            filterFunction: %ptgs.nullFilterFunction%
-            ruleLevel: %ptgs.ruleLevel%
-
-    -
         class: PTGS\PHPStanRules\Rules\Symfony\NoRequestPayloadAccessRule
         arguments:
             ruleLevel: %ptgs.ruleLevel%
@@ -211,8 +205,6 @@ conditionalTags:
         phpstan.rules.rule: %ptgs.namedArgumentOrder%
     PTGS\PHPStanRules\Rules\Serialization\NoSnakeCaseJsonKeyRule:
         phpstan.rules.rule: %ptgs.noSnakeCaseJsonKey%
-    PTGS\PHPStanRules\Rules\Serialization\NoNullInJsonSerializeRule:
-        phpstan.rules.rule: %ptgs.noNullInJsonSerialize%
     PTGS\PHPStanRules\Rules\Symfony\NoRequestPayloadAccessRule:
         phpstan.rules.rule: %ptgs.noRequestPayloadAccess%
     PTGS\PHPStanRules\Rules\Enum\StatusColumnMustBeEnumRule:

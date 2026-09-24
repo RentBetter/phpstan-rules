@@ -69,7 +69,6 @@ Disable it with `ptgs.readOnlyEntityHydration: false`.
 | Rule | Error ID | What it detects |
 |------|----------|----------------|
 | `NoSnakeCaseJsonKeyRule` | `ptgs.noSnakeCaseJsonKey` | `jsonSerialize()` returning arrays with `snake_case` keys — a leading underscore (`_debug`) is an envelope marker and passes |
-| `NoNullInJsonSerializeRule` | `ptgs.noNullInJsonSerialize` | `jsonSerialize()` returning a raw array in which a top-level value may be null, without `array_filter_nulls()` (`mixed` and a literal `null` do not count) |
 
 ### Enum
 
@@ -105,7 +104,7 @@ Each rule has a minimum level threshold:
 |-------|----------|-------|
 | **5** | Architecture | `forbiddenDependency`, `noDirectFlush`, `noRequestPayloadAccess`, `noJsonDecodeInController`, `noMultipleRequestParamsInController`, `noClassLevelRoute`, `noEntityAsFormDataClass` |
 | **6** | Correctness | `noPublicCollectionReturn`, `statusColumnMustBeEnum`, `noHardcodedValueInQuery`, `entityDeferredExplicit`, `entityTablePrefix`, `redundantColumnType`, `routeRequiresMethod`, `routeMethodSignature`, `routeIdParamMustBeString`, `routeRequiresUuidRequirement`, `moneyReturnType`, `saveParameterDefault`, `useDateFormatter`, `uniqueRouteName` |
-| **8** | Convention | `noGenericId`, `actionMethodNaming`, `routeNameMatchesMethod`, `routePathCamelCase`, `routeRequiresSpecApi`, `readonlyService`, `namedArgumentForBoolean`, `noSnakeCaseJsonKey`, `noNullInJsonSerialize` |
+| **8** | Convention | `noGenericId`, `actionMethodNaming`, `routeNameMatchesMethod`, `routePathCamelCase`, `routeRequiresSpecApi`, `readonlyService`, `namedArgumentForBoolean`, `noSnakeCaseJsonKey` |
 
 When `ruleLevel` is `null` (the default), all rules fire — backward compatible.
 
@@ -198,15 +197,6 @@ Matching is by FQCN string. Subtype detection is **not** supported — list ever
 class you want forbidden in the group, including each concrete implementation
 of an interface if those are also injected directly.
 
-### Other configurable parameters
-
-```neon
-parameters:
-    ptgs:
-        # Function name for NoNullInJsonSerializeRule (default: array_filter_nulls)
-        nullFilterFunction: array_filter_nulls
-```
-
 ## Examples
 
 ### Before
@@ -259,7 +249,7 @@ $service->save($entity, flush: true);
 
 // Use camelCase for JSON keys
 public function jsonSerialize(): array {
-    return array_filter_nulls(['firstName' => $this->firstName]);
+    return ['firstName' => $this->firstName];
 }
 ```
 
