@@ -18,13 +18,16 @@ use PTGS\PHPStanRules\Rules\LevelAwareRule;
 use PTGS\PHPStanRules\Rules\NamespaceGroupResolver;
 
 /**
- * Controller route methods accessing more than one request parameter directly
- * should use a form type or DTO instead.
+ * Controller route methods accessing more than one request parameter directly should bind
+ * them instead: a form type for the request's data (what the action creates or changes), an
+ * options object for its switches (how the action runs). One direct read is allowed — the
+ * selector that says which thing.
  *
  * Bad:  $page = $apiRequest->query->int('page');
  *       $sort = $apiRequest->query->str('sort');
  *
  * Good: $data = $this->processForm($apiRequest, ListFilterType::class);
+ *       $options = CommenceOptions::fromRequest($apiRequest);
  *
  * @implements Rule<ClassMethod>
  */
@@ -77,7 +80,7 @@ final class NoMultipleRequestParamsInControllerRule implements Rule
         return [
             RuleErrorBuilder::message(
                 \sprintf(
-                    'Controller method accesses %d request parameters directly (%s). Use a form type or DTO instead.',
+                    'Controller method accesses %d request parameters directly (%s). Use a form type (data) or an options object (switches) instead.',
                     \count($params),
                     implode(', ', array_keys($params)),
                 ),

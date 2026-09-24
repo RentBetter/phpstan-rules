@@ -20,9 +20,9 @@ final class NoMultipleRequestParamsInControllerRuleTest extends RuleTestCase
     public function testRule(): void
     {
         $this->analyse([__DIR__ . '/data/multiple-request-params.php'], [
-            ['Controller method accesses 2 request parameters directly (page, sort). Use a form type or DTO instead.', 11],
-            ['Controller method accesses 3 request parameters directly (page, sort, active). Use a form type or DTO instead.', 18],
-            ['Controller method accesses 2 request parameters directly (page, active). Use a form type or DTO instead.', 26],
+            ['Controller method accesses 2 request parameters directly (page, sort). Use a form type (data) or an options object (switches) instead.', 11],
+            ['Controller method accesses 3 request parameters directly (page, sort, active). Use a form type (data) or an options object (switches) instead.', 18],
+            ['Controller method accesses 2 request parameters directly (page, active). Use a form type (data) or an options object (switches) instead.', 26],
         ]);
     }
 }
