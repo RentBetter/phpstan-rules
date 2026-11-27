@@ -54,10 +54,6 @@ final class NamedArgumentOrderRule implements Rule
             return [];
         }
 
-        if (!$node instanceof CallLike) {
-            return [];
-        }
-
         $acceptor = $this->resolveAcceptor($node, $scope);
         if (null === $acceptor) {
             return [];

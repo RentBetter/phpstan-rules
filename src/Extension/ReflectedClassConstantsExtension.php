@@ -13,7 +13,7 @@ use PHPStan\Rules\Constants\AlwaysUsedClassConstantsExtension;
  * A constant fetched by name — `$reflection->getConstant('NAMES')`, a lookup keyed on a string,
  * a serializer reading it out of the class — has no reference phpstan can follow, so every
  * private one is reported unused. Suppressing that at each declaration spreads the same
- * @phpstan-ignore across the codebase and buries why the constant is not dead.
+ * ignore comment across the codebase and buries why the constant is not dead.
  *
  * Configure the constants this applies to, optionally narrowed to the classes that participate
  * in the reflective read:

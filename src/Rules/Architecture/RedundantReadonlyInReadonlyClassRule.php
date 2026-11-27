@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace PTGS\PHPStanRules\Rules\Architecture;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
@@ -63,7 +64,8 @@ final class RedundantReadonlyInReadonlyClassRule implements Rule
         }
 
         foreach ($constructor->params as $param) {
-            if ($this->isPromotedReadonlyParam($param)) {
+            // A parameter the parser recovered from, or one named by an expression, has no name to report.
+            if ($this->isPromotedReadonlyParam($param) && $param->var instanceof Variable && \is_string($param->var->name)) {
                 $errors[] = $this->buildError(
                     \sprintf(
                         'Promoted property $%s must not be declared readonly inside readonly class %s.',
@@ -90,7 +92,7 @@ final class RedundantReadonlyInReadonlyClassRule implements Rule
         return $node->namespacedName?->toString() ?? $node->name?->toString() ?? 'anonymous class';
     }
 
-    private function buildError(string $message, int $line): RuleError
+    private function buildError(string $message, int $line): IdentifierRuleError
     {
         return RuleErrorBuilder::message($message)
             ->identifier('ptgs.redundantReadonlyInReadonlyClass')
