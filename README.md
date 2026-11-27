@@ -7,10 +7,12 @@ PHPStan rules covering Doctrine usage, Symfony routing, architecture patterns, J
 ## Installation
 
 ```bash
-composer require --dev rentbetter/phpstan-rules
+composer require --dev ptgs/phpstan-rules:dev-main
 ```
 
-The rules are auto-discovered via PHPStan's extension mechanism — no manual `includes` needed.
+There is no tagged release yet, so the branch is named.
+
+With [phpstan/extension-installer](https://github.com/phpstan/extension-installer) the rules are auto-discovered — no manual `includes` needed. Without it, include `vendor/ptgs/phpstan-rules/extension.neon` in your `phpstan.neon`.
 
 ## Rules
 
