@@ -7,8 +7,8 @@ namespace PTGS\PHPStanRules\Rules\Doctrine;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PTGS\PHPStanRules\Rules\LevelAwareRule;
 
@@ -160,7 +160,7 @@ final class RedundantJoinColumnRule implements Rule
         return $value instanceof Node\Expr\Array_ && [] === $value->items;
     }
 
-    private function buildEntirelyRedundantError(Node\Attribute $attr, string $propertyName): RuleError
+    private function buildEntirelyRedundantError(Node\Attribute $attr, string $propertyName): IdentifierRuleError
     {
         return RuleErrorBuilder::message(\sprintf(
             'Redundant JoinColumn on property $%s — every value matches the Doctrine default; the attribute can be removed.',
